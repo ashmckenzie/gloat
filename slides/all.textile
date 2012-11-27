@@ -1,0 +1,7 @@
+!SLIDE bullets
+
+h1. First slide!
+
+!SLIDE smbullets
+
+h1. Second slide!
