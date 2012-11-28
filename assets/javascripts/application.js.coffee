@@ -20,6 +20,12 @@ jQuery ->
   Mousetrap.bind '?', ->
     alert('show help!')
 
+  for number in [ 1..slideManager.totalSlideNumber() ]
+    do (number) ->
+      Mousetrap.bind((number).toString() + ' enter', ->
+        slideManager.showSlide(number)
+      , 'keydown')
+
   Mousetrap.bind 'left', ->
     slideManager.previousSlide()
 

@@ -24,17 +24,19 @@ Gloat.SlideManager = Backbone.Model.extend
   currentSlide: ->
     $(@get('slides')[@get('currentSlideIndex')])
 
-  showSlide: (slideIndex) ->
-    @currentSlide().hide()
-    @set('currentSlideIndex', slideIndex)
+  showSlide: (slideNumber) ->
+    $(@get('slides')).each (i, slide) =>
+      $(slide).hide()
+
+    @set('currentSlideIndex', (slideNumber - 1))
     @currentSlide().show()
 
   nextSlide: ->
     if @get('currentSlideIndex') < (@totalSlideNumber() - 1)
       slideIndex = @get('currentSlideIndex') + 1
-      @showSlide(slideIndex)
+      @showSlide(slideIndex + 1)
 
   previousSlide: ->
     if @get('currentSlideIndex') > 0
       slideIndex = @get('currentSlideIndex') - 1
-      @showSlide(slideIndex)
+      @showSlide(slideIndex + 1)
