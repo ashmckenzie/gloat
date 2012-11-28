@@ -3,11 +3,12 @@ module Gloat
 
     attr_reader :number, :template_name
 
-    def initialize config,number, raw_options, raw_markup, template_name='default'
+    def initialize config,number, raw_options, raw_markup, extension, template_name='default'
       @config = config
       @number = number
-      @raw_markup = raw_markup
       @raw_options = raw_options
+      @raw_markup = raw_markup
+      @extension = extension
       @template_name = template_name
     end
 
@@ -20,10 +21,18 @@ module Gloat
 
     def markup
       @markup ||= begin
-        case language
+
+        if @extension == 'slide'
+          check = language
+        else
+          check = @extension
+        end
+
+        case check
           when 'textile' then Tilt::RedClothTemplate.new { @raw_markup }.render
           when 'markdown' then Tilt::RDiscountTemplate.new { @raw_markup }.render
           when 'haml' then Tilt::HamlTemplate.new { @raw_markup }.render
+          else raise 'Unknown language'
         end
       end
     end

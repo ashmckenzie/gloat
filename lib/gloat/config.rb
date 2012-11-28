@@ -3,7 +3,7 @@ require 'yaml'
 module Gloat
   class Config
 
-    SLIDE_EXTENSION = 'slide'
+    SLIDE_EXTENSIONS = %w{ slide textile md haml }
 
     attr_reader :settings
 
@@ -25,7 +25,7 @@ module Gloat
         if File.directory?(entry)
           slides += Dir[File.expand_path(File.join('..', '..', '..', entry, '*.slide'), __FILE__)]
         else
-          if Pathname.new(entry).extname.gsub(/^\./, '') == SLIDE_EXTENSION
+          if SLIDE_EXTENSIONS.include?(Pathname.new(entry).extname.gsub(/^\./, ''))
             slides << File.expand_path(File.join('..',  '..', '..', entry), __FILE__)
           end
         end

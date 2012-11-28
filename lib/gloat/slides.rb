@@ -13,9 +13,10 @@ module Gloat
       @config.slides.inject([]) do |slides, file|
         next unless File.exist?(file)
         File.read(file).scan(slide_regex).each do |s|
-          if m = s.match(/^!SLIDE\s*(?<options>[^\n]*)\n\n(?<raw>[^\n].*)$/m)
+          if m = s.match(/^!SLIDE\s?(?<options>[^\n]*)\n\n(?<raw>[^\n].*)$/m)
             number += 1
-            slides << Gloat::Slide.new(@config, number, m['options'], m['raw'])
+            extension = Pathname.new(file).extname.gsub(/^\./, '')
+            slides << Gloat::Slide.new(@config, number, m['options'], m['raw'], extension)
           end
         end
         slides

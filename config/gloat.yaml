@@ -4,3 +4,4 @@ description: Gloat - the best darn presentation tool
 author: Ash McKenzie
 slides:
   - slides/all.slide
+  - slides/haml_baby.haml
