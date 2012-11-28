@@ -6,6 +6,7 @@ h1. First slide!
 * Should be normal bullets
 * Should be normal bullets
 
+
 !SLIDE classes="small-bullets"
 
 h1. Second slide!
@@ -16,11 +17,13 @@ h1. Second slide!
 
 !/images/unicorn.png!
 
+
 !SLIDE language="markdown"
 
 # Markdown baby #
 
 ![Unicorn](/images/unicorn.png)
+
 
 !SLIDE language="haml"
 

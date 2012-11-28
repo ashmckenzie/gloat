@@ -195,13 +195,14 @@
 * Open Source once complete
 
 
-!SLIDE bullets smbullets
+!SLIDE language="erb"
 
-# Infrastructure Testing #
+<h1>Infrastructure Testing</h1>
 
-## Service definition ##
+<h2>Service definition</h2>
 
-    @@@ ruby
+<pre>
+  <code data-language="ruby">
     # nginx
     #
     shared_examples "an nginx setup" do
@@ -215,6 +216,8 @@
       it { host.should have_remote_file '/var/run/postgres.pid' }
       it { host.should listen_on_local_port 5432 }
     end
+  </code>
+</pre>
 
 
 !SLIDE bullets smbullets

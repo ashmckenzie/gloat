@@ -30,8 +30,9 @@ module Gloat
 
         case check
           when 'textile' then Tilt::RedClothTemplate.new { @raw_markup }.render
-          when /markdown|md/ then Tilt::RDiscountTemplate.new { @raw_markup }.render
           when 'haml' then Tilt::HamlTemplate.new { @raw_markup }.render
+          when 'erb' then Tilt::ERBTemplate.new { @raw_markup }.render
+          when /markdown|md/ then Tilt::RDiscountTemplate.new { @raw_markup }.render
           else raise 'Unknown language'
         end
       end

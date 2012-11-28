@@ -1,10 +1,8 @@
 //= require_tree ./vendor
 
-*
-  font-family: 'Open Sans', sans-serif
-
 body
   background: url("background.png") transparent repeat fixed
+  font-family: 'Open Sans', sans-serif
   margin: 0
 
 footer
@@ -14,11 +12,17 @@ footer
   top: -30px
 
 pre, code
+  font-family: 'Droid Sans Mono', 'Monaco', courier, monospace
+  font-size: 0.7em
   text-align: left
 
-#slides, .slide, header, footer
+#slides
   margin: 0 auto
   width: 1024px
+
+.slide, header, footer
+  margin: 0 auto
+  width: 984px
 
 #slides, .slide
   height: 768px
