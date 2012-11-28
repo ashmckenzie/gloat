@@ -1,49 +1,21 @@
-#= require jquery
-#= require mousetrap
+#= require vendor/jquery
+#= require vendor/underscore
+#= require vendor/backbone
+#= require vendor/mousetrap
+#= require namespace
+#= require_tree ./gloat
 
-class Slide
-  constructor: (@id) ->
-
-  hide: ->
-    alert('Would hide' + @id)
-
-class SlideManager
-
-  currentSlideIndex = 0
-  slides = []
-
-  constructor: (@selector) ->
-    @selector.each (i, slide) ->
-      slides.push slide
-
-  currentSlide: ->
-    $(slides[currentSlideIndex])
-
-  previousSlide: ->
-    @currentSlide().hide()
-    @_previousSlide().show()
-
-  nextSlide: ->
-    @currentSlide().hide()
-    @_nextSlide().show()
-
-  _nextSlide: ->
-    currentSlideIndex += 1 if currentSlideIndex < (slides.length - 1)
-    @currentSlide()
-
-  _previousSlide: ->
-    currentSlideIndex -= 1 if currentSlideIndex > 0
-    @currentSlide()
+_.templateSettings = {
+    interpolate: /\{\{\=(.+?)\}\}/g,
+    evaluate: /\{\{(.+?)\}\}/g
+}
 
 jQuery ->
 
-  # Show the first slide
-  #
   $('#slides .slide').first().show()
 
-  # Bind left + right to move slides
-  #
-  slideManager = new SlideManager $('#slides .slide')
+  slideManager = new Gloat.SlideManager($('#slides .slide'))
+  slideStateView = new Gloat.SlideStateView(el: $('footer'), model: slideManager)
 
   Mousetrap.bind '?', ->
     alert('show help!')
