@@ -8,6 +8,7 @@ gem 'RedCloth'
 gem 'sass'
 gem 'haml'
 gem 'markdown'
+gem 'coffee-script'
 gem 'hashie'
 
 group :development do

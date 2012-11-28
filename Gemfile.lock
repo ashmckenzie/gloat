@@ -11,6 +11,10 @@ GEM
     backports (2.6.5)
     closure-compiler (1.1.7)
     coderay (1.0.8)
+    coffee-script (2.2.0)
+      coffee-script-source
+      execjs
+    coffee-script-source (1.4.0)
     columnize (0.3.6)
     daemons (1.1.9)
     debugger (1.1.4)
@@ -96,6 +100,7 @@ PLATFORMS
 DEPENDENCIES
   RedCloth
   awesome_print
+  coffee-script
   haml
   hashie
   markdown
