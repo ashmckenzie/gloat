@@ -6,6 +6,7 @@ require "sinatra/reloader"
 require 'sprockets'
 
 dirs = [
+  File.expand_path('../../../lib/gloat/support', __FILE__),
   File.expand_path('../../../lib/gloat', __FILE__),
 ]
 

@@ -12,6 +12,7 @@ Gloat.SlideManager = Backbone.Model.extend
     {
       currentSlideNumber: @currentSlideNumber(),
       totalSlideNumber: @totalSlideNumber(),
+      percentageComplete: @percentageComplete(),
       slides: @get('slides')
     }
 
@@ -20,6 +21,9 @@ Gloat.SlideManager = Backbone.Model.extend
 
   currentSlideNumber: ->
     @get('currentSlideIndex') + 1
+
+  percentageComplete: ->
+    ((@currentSlideNumber() / @totalSlideNumber()) * 100).toFixed()
 
   currentSlide: ->
     $(@get('slides')[@get('currentSlideIndex')])

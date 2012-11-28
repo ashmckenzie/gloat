@@ -32,7 +32,10 @@ jQuery ->
 
   startWithSlideNumber = window.location.hash.replace(/#/, '')
 
-  if !startWithSlideNumber || !Gloat.Utils.isInt(startWithSlideNumber)
+  if !startWithSlideNumber ||
+      !Gloat.Utils.isInt(startWithSlideNumber) ||
+      startWithSlideNumber == '0' ||
+      parseInt(startWithSlideNumber) > slideManager.totalSlideNumber()
     startWithSlideNumber = 1
 
-  slideManager.showSlide(startWithSlideNumber)
+  slideManager.showSlide(parseInt(startWithSlideNumber))

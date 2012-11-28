@@ -1,5 +1,4 @@
 class Gloat.Utils
 
   @isInt: (n) ->
-    true
-    # (n % 1) === 0
+    (n % 1) == 0

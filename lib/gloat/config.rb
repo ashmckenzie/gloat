@@ -2,6 +2,9 @@ require 'yaml'
 
 module Gloat
   class Config
+
+    SLIDE_EXTENSION = 'slide'
+
     attr_reader :settings
 
     def initialize
@@ -12,12 +15,19 @@ module Gloat
       )
     end
 
+    def default_language
+      @default_language ||= settings.fetch('default_language', 'textile')
+    end
+
     def slides
+      raise 'No slides configured!' unless settings.slides
       settings.slides.inject([]) do |slides, entry|
         if File.directory?(entry)
-          slides += Dir[File.expand_path(File.join('..', '..', '..', entry, '*'), __FILE__)]
+          slides += Dir[File.expand_path(File.join('..', '..', '..', entry, '*.slide'), __FILE__)]
         else
-          slides << File.expand_path(File.join('..',  '..', '..', entry), __FILE__)
+          if Pathname.new(entry).extname.gsub(/^\./, '') == SLIDE_EXTENSION
+            slides << File.expand_path(File.join('..',  '..', '..', entry), __FILE__)
+          end
         end
         slides
       end

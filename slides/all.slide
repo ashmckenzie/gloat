@@ -1,0 +1,29 @@
+!SLIDE classes="bullets"
+
+h1. First slide!
+
+* Should be normal bullets
+* Should be normal bullets
+* Should be normal bullets
+
+!SLIDE classes="small-bullets"
+
+h1. Second slide!
+
+* Should be small bullets
+* Should be small bullets
+* Should be small bullets
+
+!/images/unicorn.png!
+
+!SLIDE language="markdown"
+
+# Markdown baby #
+
+![Unicorn](/images/unicorn.png)
+
+!SLIDE language="haml"
+
+%h1 HAML baby!
+
+%img{ src: '/images/unicorn.png' }

@@ -5,10 +5,10 @@ gem 'sinatra-contrib'
 gem 'sinatra-sprockets'
 gem 'tilt'
 gem 'RedCloth'
+gem 'rdiscount'
+gem 'coffee-script'
 gem 'sass'
 gem 'haml'
-gem 'markdown'
-gem 'coffee-script'
 gem 'hashie'
 
 group :development do

@@ -32,7 +32,7 @@ module Gloat
     end
 
     def layout_file
-      File.expand_path(File.join('..', '..', '..', 'layouts', "#{layout_name}.erb"), __FILE__)
+      File.expand_path(File.join('..', '..', '..', 'views', 'layouts', "#{layout_name}.erb"), __FILE__)
     end
   end
 end
