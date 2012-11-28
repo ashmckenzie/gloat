@@ -2,10 +2,18 @@
 
 h1. First slide!
 
-!SLIDE smbullets
+* Should be normal bullets
+* Should be normal bullets
+* Should be normal bullets
+
+!SLIDE small-bullets
 
 h1. Second slide!
 
-!SLIDE big
+* Should be small bullets
+* Should be small bullets
+* Should be small bullets
+
+!SLIDE
 
 h1. Third slide OMG!

@@ -62,7 +62,7 @@ module Gloat
       config.slides.inject([]) do |slides, file|
         next unless File.exist?(file)
         File.read(file).scan(slide_regex).each do |s|
-          m = s.match(/!SLIDE\s*(.*)\s*\n+(.+)\n*/)
+          m = s.match(/^!SLIDE\s*(.*)\n\n\b(.*)$/m)
           number += 1
           slides << Gloat::Slide.new(number, m[1], m[2])
         end

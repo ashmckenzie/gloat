@@ -30,6 +30,7 @@ Gloat.SlideManager = Backbone.Model.extend
 
     @set('currentSlideIndex', (slideNumber - 1))
     @currentSlide().show()
+    window.location.hash = slideNumber
 
   nextSlide: ->
     if @get('currentSlideIndex') < (@totalSlideNumber() - 1)

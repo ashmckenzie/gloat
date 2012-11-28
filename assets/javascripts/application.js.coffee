@@ -12,8 +12,6 @@ _.templateSettings = {
 
 jQuery ->
 
-  $('#slides .slide').first().show()
-
   slideManager = new Gloat.SlideManager($('#slides .slide'))
   slideStateView = new Gloat.SlideStateView(el: $('footer'), model: slideManager)
 
@@ -31,3 +29,10 @@ jQuery ->
 
   Mousetrap.bind [ 'right', 'space' ], ->
     slideManager.nextSlide()
+
+  startWithSlideNumber = window.location.hash.replace(/#/, '')
+
+  if !startWithSlideNumber || !Gloat.Utils.isInt(startWithSlideNumber)
+    startWithSlideNumber = 1
+
+  slideManager.showSlide(startWithSlideNumber)
