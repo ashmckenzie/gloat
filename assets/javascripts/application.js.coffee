@@ -2,12 +2,14 @@
 #= require vendor/underscore
 #= require vendor/backbone
 #= require vendor/mousetrap
+#= require vendor/rainbow/rainbow
+#= require_tree ./vendor/rainbow
 #= require namespace
 #= require_tree ./gloat
 
 _.templateSettings = {
-    interpolate: /\{\{\=(.+?)\}\}/g,
-    evaluate: /\{\{(.+?)\}\}/g
+  interpolate: /\{\{\=(.+?)\}\}/g,
+  evaluate: /\{\{(.+?)\}\}/g
 }
 
 jQuery ->
@@ -18,9 +20,10 @@ jQuery ->
   Mousetrap.bind '?', ->
     alert('show help!')
 
-  for number in [ 1..slideManager.totalSlideNumber() ]
+  for number in [ slideManager.totalSlideNumber()..1 ]
     do (number) ->
-      Mousetrap.bind((number).toString() + ' enter', ->
+      numberAsString = (number).toString().split('').join(' ')
+      Mousetrap.bind(numberAsString + ' enter', ->
         slideManager.showSlide(number)
       , 'keydown')
 

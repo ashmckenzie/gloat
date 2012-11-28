@@ -22,7 +22,7 @@ module Gloat
     def markup
       @markup ||= begin
 
-        if @extension == 'slide'
+        if @extension == 'slide' || language != @config.default_language
           check = language
         else
           check = @extension
@@ -30,7 +30,7 @@ module Gloat
 
         case check
           when 'textile' then Tilt::RedClothTemplate.new { @raw_markup }.render
-          when 'markdown' then Tilt::RDiscountTemplate.new { @raw_markup }.render
+          when /markdown|md/ then Tilt::RDiscountTemplate.new { @raw_markup }.render
           when 'haml' then Tilt::HamlTemplate.new { @raw_markup }.render
           else raise 'Unknown language'
         end

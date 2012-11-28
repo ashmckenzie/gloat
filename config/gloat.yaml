@@ -5,3 +5,4 @@ author: Ash McKenzie
 slides:
   - slides/all.slide
   - slides/haml_baby.haml
+  - slides/infracoders.md
