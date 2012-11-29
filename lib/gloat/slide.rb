@@ -32,6 +32,7 @@ module Gloat
           when 'textile' then Tilt::RedClothTemplate.new { @raw_markup }.render
           when 'haml' then Tilt::HamlTemplate.new { @raw_markup }.render
           when 'erb' then Tilt::ErubisTemplate.new { @raw_markup.gsub(/<.+>\n* */) { |m| m.gsub(/>\n* *$/, '>') } }.render
+          when 'html' then @raw_markup
           when /markdown|md/ then Tilt::RDiscountTemplate.new { @raw_markup }.render
           else raise 'Unknown language'
         end

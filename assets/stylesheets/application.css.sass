@@ -5,22 +5,32 @@ body
   font-family: 'Open Sans', sans-serif
   margin: 0
 
+header
+  background-color: #00BCE0
+  border-bottom: 3px solid #009DBB
+  height: 60px
+  // width: 100%
+  padding: 0
+  position: relative
+  z-index: 1
+
+header img
+  display: none
+//   float: right
+//   right: 20px
+//   top: 20px
+
 footer
-  color: #999
-  left: 10px
+  color: #ddd
+  left: -8px
   position: relative
   top: -30px
 
-pre, code
-  font-family: 'Droid Sans Mono', 'Monaco', courier, monospace
-  font-size: 0.7em
-  text-align: left
-
-#slides
+header, #slides
   margin: 0 auto
   width: 1024px
 
-.slide, header, footer
+.slide, footer
   margin: 0 auto
   width: 984px
 
@@ -30,32 +40,60 @@ pre, code
 #slides
   background-color: #fff
   position: relative
+  top: -60px
   .slide
     display: none
     padding: 0 20px
-    position: absolute
     text-align: center
-    top: 0
+    vertical-align: middle
 
 //----------------------------------------------------------------------------//
 
 #slides
   .slide
-    font-size: 1.8em
-    h1
-      font-size: 2.2em
-    h2
-      font-size: 2.0em
-    h3
+    font-size: 1em
+    pre
+      font-family: 'Droid Sans Mono', 'Monaco', courier, monospace
+      font-size: 1.1em
+      line-height: 28px
+      padding: 20px
+      margin: 0
+      text-align: left
+    p
       font-size: 1.8em
+    img
+      padding: 0 10px
+    h1
+      font-size: 4.0em
+      margin: 0 0 0.6em 0
+    h2
+      font-size: 2.8em
+      margin: 0.4em 0 1em 0
+    h3
+      font-size: 2.2em
+      margin: 0.4em 0 1em 0
     ul
       list-style: none
       padding: 0
       li
-        font-size: 1.3em
+        font-size: 2.8em
+        line-height: 88px
     &.small-bullets
       li
-        font-size: 1.2em !important
+        font-size: 2.2em
+        line-height: 72px
+    &.small-bullets-x2
+      li
+        font-size: 2.0em
+        line-height: 58px
+    &.small-bullets-x3
+      li
+        font-size: 1.8em
+        line-height: 54px
+    &.small-bullets-x4
+      li
+        font-size: 1.6em
+        line-height: 50px
 
 //----------------------------------------------------------------------------//
 

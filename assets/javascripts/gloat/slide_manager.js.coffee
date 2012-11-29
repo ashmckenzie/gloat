@@ -33,7 +33,8 @@ Gloat.SlideManager = Backbone.Model.extend
       $(slide).hide()
 
     @set('currentSlideIndex', (slideNumber - 1))
-    @currentSlide().show()
+    # @currentSlide().show()
+    @currentSlide().css('display', 'table-cell')
     window.location.hash = slideNumber
 
   nextSlide: ->

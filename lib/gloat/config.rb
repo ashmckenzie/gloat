@@ -3,7 +3,7 @@ require 'yaml'
 module Gloat
   class Config
 
-    SLIDE_EXTENSIONS = %w{ slide textile md haml }
+    SLIDE_EXTENSIONS = %w{ slide textile md haml erb html }
 
     attr_reader :settings
 
@@ -23,11 +23,20 @@ module Gloat
       raise 'No slides configured!' unless settings.slides
       settings.slides.inject([]) do |slides, entry|
         if File.directory?(entry)
-          slides += Dir[File.expand_path(File.join('..', '..', '..', entry, '*.slide'), __FILE__)]
+          entries = Dir[File.expand_path(File.join('..', '..', '..', entry, '*'), __FILE__)]
         else
-          if SLIDE_EXTENSIONS.include?(Pathname.new(entry).extname.gsub(/^\./, ''))
-            slides << File.expand_path(File.join('..',  '..', '..', entry), __FILE__)
-          end
+          entries = [ File.expand_path(File.join('..',  '..', '..', entry), __FILE__) ]
+        end
+        slides += process_slides(entries)
+      end
+    end
+
+    private
+
+    def process_slides entries
+      entries.inject([]) do |slides, entry|
+        if SLIDE_EXTENSIONS.include?(Pathname.new(entry).extname.gsub(/^\./, ''))
+          slides << entry
         end
         slides
       end

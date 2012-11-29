@@ -3,6 +3,4 @@ name: Gloat presentation
 description: Gloat - the best darn presentation tool
 author: Ash McKenzie
 slides:
-  - slides/all.slide
-  - slides/haml_baby.haml
-  - slides/infracoders.md
+  - slides

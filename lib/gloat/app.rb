@@ -26,7 +26,7 @@ module Gloat
     end
 
     get '/images/:image' do |image|
-      send_file File.expand_path(File.join('..', '..', '..', 'slides', image), __FILE__)
+      send_file File.expand_path(File.join('..', '..', '..', 'slides', 'images', image), __FILE__)
     end
   end
 end

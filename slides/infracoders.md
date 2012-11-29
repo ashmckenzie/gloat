@@ -2,24 +2,18 @@
 
 # Operations at Hooroo #
 
+## Ash McKenzie, Developer ##
 
+### November 13 2012 ###
 
-<br/>
-### Ash McKenzie, Developer###
-#### November 13 2012 ####
-
-
-!SLIDE bullets smbullets
-
-
+!SLIDE classes="small-bullets"
 
 # Me #
 
 * [@ashmckenzie](http://twitter.com/ashmckenzie)
 * [http://ashmckenzie.org](http://ashmckenzie.org)
 
-
-!SLIDE bullets
+!SLIDE
 
 * Hooroo
 * Development & Deployment
@@ -28,16 +22,20 @@
 * Asynchronous Airbrake
 * Infrastructure Testing
 
-
-!SLIDE
+!SLIDE classes="small-bullets-x4"
 
 # Hooroo #
 
 [urbandictionary.com/define.php?term=hooroo](http://urbandictionary.com/define.php?term=hooroo)
 
 <cite>An Aussie way of saying "goodbye"</cite>
+<br/>
 
-!SLIDE bullets smbullets
+* Bruce: Crikes it's getting late, mate, I should probably get back.
+* Shaz: No worries mate, see ya tomorrow for the shearing competition. Hooroo.
+* Bruce: Hooroo!
+
+!SLIDE classes="small-bullets-x2"
 
 # The company #
 
@@ -46,10 +44,10 @@
 * Provides accomodation booking and inspirational content
 * Emphasis on strong visuals and ease of use
 
-![Hooroo](hooroo.png)
+![Hooroo](/images/hooroo.png)
 
 
-!SLIDE bullets smbullets
+!SLIDE
 
 # The tech #
 
@@ -58,18 +56,15 @@
 * nginx, Unicorn, HAProxy
 * PostgreSQL 9.x, Redis
 
-![engine_yard](engine_yard.png)
-![ruby](ruby.png)
-![rails](rails.png)
-![nginx](nginx.png)
+![engine_yard](/images/engine_yard.png)
+![ruby](/images/ruby.png)
+![rails](/images/rails.png)
+![nginx](/images/nginx.png)
 ![unicorn](/images/unicorn.png)
-![postgres](postgres.png)
-![redis](redis.png)
+![postgres](/images/postgres.png)
+![redis](/images/redis.png)
 
-
-!SLIDE bullets smbullets
-
-
+!SLIDE classes="small-bullets"
 
 # Development goodies #
 
@@ -79,14 +74,11 @@
 * pry allows you to 'freeze' execution and interact
 * Zeus - significantly speeds up development & testing
 
-![backbone](backbone.png)
-![pry](pry.png)
-![coffeescript](coffeescript.png)
+![backbone](/images/backbone.png)
+![pry](/images/pry.png)
+![coffeescript](/images/coffeescript.png)
 
-
-!SLIDE bullets
-
-
+!SLIDE classes="small-bullets"
 
 # Deployment #
 
@@ -96,10 +88,7 @@
 * Daily Production deploy, usually arround 10AM
 * Takes approximately eight minutes
 
-
-!SLIDE bullets smbullets
-
-
+!SLIDE classes="small-bullets"
 
 # Deployment cont'd #
 
@@ -107,12 +96,10 @@
 * Everyone (inc. non techs) deploy to Production
 * Deployment is a single click affair in Jenkins
 
-![deploy](deploy.png)
+<br/>
+![deploy](/images/deploy.png)
 
-
-!SLIDE bullets
-
-
+!SLIDE classes="small-bullets"
 
 # Chef build pipeline #
 
@@ -121,10 +108,7 @@
 * Aim to mirror code deployment process
 * Reduces environment inconsistencies
 
-
-!SLIDE bullets
-
-
+!SLIDE classes="small-bullets"
 
 # Zero Downtime #
 
@@ -132,16 +116,14 @@
 * Unicorn reload (USR2) and careful DB migrations
 * Great [RailsCast](http://railscasts.com/episodes/373-zero-downtime-deployment) recently covered all the gotchas
 
-![maintenance](maintenance.png)
+<br/>
+![maintenance](/images/maintenance.png)
 
-
-!SLIDE bullets smbullets
-
-
+!SLIDE classes="small-bullets-x2"
 
 # Asynchronous Airbrake #
 
-![airbrake](airbrake.png)
+![airbrake](/images/airbrake.png)
 
 * Airbrake is great, but can be slow (submitting & their UI)
 * New Relic RPM revealed delays in submitting (up to 3 secs)
@@ -149,41 +131,34 @@
 * Updated to use async Airbrake submission via Resque
 * Fallback to synchronous method if Resque job fails
 
-
 !SLIDE language="haml"
 
 %h1 Asynchronous Airbrake
 
-%h2 config/initialisers/airbrake.rb
+%h3 config/initialisers/airbrake.rb
 
-%pre
-  %code{ 'data-language' => 'ruby' }
-    = preserve do
-      :escaped
-        Airbrake.configure do |config|
-          config.api_key = 12345678
+%pre{ 'data-language' => 'ruby' }
+  :escaped
+    Airbrake.configure do |config|
+      config.api_key = 12345678
 
-          config.async do |notice|
-            begin
-              Resque.enqueue(AirbrakeDeliveryWorker, notice.to_xml)
-            rescue
-              # job submission failed, so go the slower route.
-              Airbrake.sender.send_to_airbrake(notice)
-            end
-          end
+      config.async do |notice|
+        begin
+          Resque.enqueue(AirbrakeDeliveryWorker, notice.to_xml)
+        rescue
+          # job submission failed, so go the slower route.
+          Airbrake.sender.send_to_airbrake(notice)
         end
+      end
+    end
 
-!SLIDE bullets smbullets
-
+!SLIDE
 
 # Infrastructure Testing #
 
 ## Using RSpec ##
 
-
-!SLIDE bullets smbullets
-
-
+!SLIDE
 
 # Infrastructure Testing #
 
@@ -194,81 +169,76 @@
 * Drop JSON file containing state
 * Open Source once complete
 
-
-!SLIDE language="erb"
+!SLIDE language="html"
 
 <h1>Infrastructure Testing</h1>
 
 <h2>Service definition</h2>
 
-<pre>
-  <code data-language="ruby">
-    # nginx
-    #
-    shared_examples "an nginx setup" do
-      it { host.should have_remote_file "/etc/nginx/nginx.conf" }
-      it { host.should listen_on_local_port 81 }
-    end
+<pre data-language="ruby">
+# nginx
+#
+shared_examples "an nginx setup" do
+  it { host.should have_remote_file "/etc/nginx/nginx.conf" }
+  it { host.should listen_on_local_port 81 }
+end
 
-    # postgres
-    #
-    shared_examples "a postgresql setup" do
-      it { host.should have_remote_file "/var/run/postgres.pid" }
-      it { host.should listen_on_local_port 5432 }
-    end
-  </code>
+# postgres
+#
+shared_examples "a postgresql setup" do
+  it { host.should have_remote_file "/var/run/postgres.pid" }
+  it { host.should listen_on_local_port 5432 }
+end
 </pre>
 
+!SLIDE language="html"
 
-!SLIDE bullets smbullets
+<h1>Infrastructure Testing</h1>
 
-# Infrastructure Testing #
+<h2>Environment definition</h2>
 
-## Environment definition ##
-
-    @@@ ruby
-    shared_context "Environment" do
-      describe do
-        [ :app_master, :app_slaves ].each do |role|
-          describe role do
-            Nagios::HostManager.hostnames(environment, role).each do |hostname|
-              describe hostname do
-                it_behaves_like "an nginx setup"
-                it_behaves_like "a haproxy setup"
-              end
-            end
+<pre data-language="ruby">
+shared_context "Environment" do
+  describe do
+    [ :app_master, :app_slaves ].each do |role|
+      describe role do
+        Nagios::HostManager.hostnames(environment, role).each do |hostname|
+          describe hostname do
+            it_behaves_like "an nginx setup"
+            it_behaves_like "a haproxy setup"
           end
         end
       end
     end
+  end
+end
+</pre>
 
+!SLIDE language="html"
 
-!SLIDE bullets smbullets
+<h1>Infrastructure Testing</h1>
 
-# Infrastructure Testing #
+<h2>Specific environment definition</h2>
 
-## Specific environment definition ##
+<pre data-language="ruby">
 
-    @@@ ruby
-    describe 'Shrubbery', :environment => :shrubbery do
-      include_context "Environment"
-    end
+describe 'Shrubbery', :environment => :shrubbery do
+  include_context "Environment"
+end
 
-    describe 'Staging', :environment => :staging do
-      include_context "Environment"
-    end
+describe 'Staging', :environment => :staging do
+  include_context "Environment"
+end
+</pre>
 
-!SLIDE bullets smbullets
+!SLIDE
 
 # Demo #
 
-
-!SLIDE bullets smbullets
+!SLIDE
 
 # Thank-you! #
 
 ## Questions? ##
 
-<br/>
 We're hiring too :)
-
