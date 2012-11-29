@@ -206,14 +206,14 @@
     # nginx
     #
     shared_examples "an nginx setup" do
-      it { host.should have_remote_file '/etc/nginx/nginx.conf' }
+      it { host.should have_remote_file "/etc/nginx/nginx.conf" }
       it { host.should listen_on_local_port 81 }
     end
 
     # postgres
     #
     shared_examples "a postgresql setup" do
-      it { host.should have_remote_file '/var/run/postgres.pid' }
+      it { host.should have_remote_file "/var/run/postgres.pid" }
       it { host.should listen_on_local_port 5432 }
     end
   </code>
