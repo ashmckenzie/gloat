@@ -3,6 +3,8 @@
 $width: 1024px
 $height: 768px
 
+$background_color: #fff
+
 body
   background: url("background.png") transparent repeat fixed
   font-family: 'Open Sans', sans-serif
@@ -12,15 +14,33 @@ body
 
 body
   margin: 0
-  overflow: hidden
+  // overflow: hidden
   padding: 0
 
-#slides, #slides .slide
+#slides, #slides .slide, #slide-list
   margin: 0 auto
   width: $width
 
+#slide-list
+  display: none
+  font-size: 30%
+  height: 202px
+  margin: 15px auto 30px auto
+  overflow: auto
+  #slide-list-inner
+    width: 200000px
+  .slide
+    background-color: $background_color
+    width: 200px
+    overflow: hidden
+    height: 200px
+    float: left
+    border: 1px dotted #aaa
+    img
+      width: 10%
+
 #slides
-  background-color: #fff
+  background-color: $background_color
   height: $height
   position: relative
   #slide-status
@@ -33,59 +53,53 @@ body
   .slide
     display: none
     position: absolute
-    text-align: center
 
 //----------------------------------------------------------------------------//
 
-#slides
-  .slide
-    font-size: 1em
-    pre
-      background-color: #222
-      font-family: 'Droid Sans Mono', 'Monaco', courier, monospace
-      font-size: 1.1em
-      line-height: 28px
-      padding: 20px
-      margin: 0 auto
-      text-align: left
-      width: $width - 80px
-    p
-      font-size: 1.8em
-    img
-      padding: 0 10px
-    h1
-      font-size: 4.0em
-      margin: 0 0 0.6em 0
-    h2
+.slide
+  font-size: 1em
+  text-align: center
+  pre
+    background-color: #222
+    font-family: 'Droid Sans Mono', 'Monaco', courier, monospace
+    font-size: 1.1em
+    line-height: 28px
+    padding: 20px
+    margin: 0 auto
+    text-align: left
+    width: $width - 80px
+  p
+    font-size: 1.8em
+  img
+    padding: 0 10px
+  h1
+    font-size: 4.0em
+    margin: 0 0 0.6em 0
+  h2
+    font-size: 2.8em
+    margin: 0.4em 0 1em 0
+  h3
+    font-size: 2.2em
+    margin: 0.4em 0 1em 0
+  ul
+    list-style: none
+    padding: 0
+    li
       font-size: 2.8em
-      margin: 0.4em 0 1em 0
-    h3
+      line-height: 196%
+  &.small-bullets
+    li
       font-size: 2.2em
-      margin: 0.4em 0 1em 0
-    ul
-      list-style: none
-      padding: 0
-      li
-        font-size: 2.8em
-        line-height: 88px
-    &.small-bullets
-      li
-        font-size: 2.2em
-        line-height: 72px
-    &.small-bullets-x2
-      li
-        font-size: 2.0em
-        line-height: 58px
-    &.small-bullets-x3
-      li
-        font-size: 1.8em
-        line-height: 54px
-    &.small-bullets-x4
-      li
-        font-size: 1.6em
-        line-height: 50px
-
-//----------------------------------------------------------------------------//
-
-.hidden
-  display: none
+      line-height: 206%
+  &.small-bullets-x2
+    li
+      font-size: 2.0em
+      line-height: 182%
+  &.small-bullets-x3
+    li
+      font-size: 1.8em
+      line-height: 188%
+  &.small-bullets-x4
+    li
+      font-size: 1.6em
+      line-height: 190%

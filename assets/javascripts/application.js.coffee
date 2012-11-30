@@ -23,6 +23,9 @@ jQuery ->
   Mousetrap.bind '?', ->
     $('#help').reveal();
 
+  Mousetrap.bind 'l', ->
+    $('#slide-list').toggle()
+
   Mousetrap.stopCallback = ->
     slideChanged == true
 

@@ -25,12 +25,19 @@
       <%= footer %>
     </footer>
 
+    <div id="slide-list">
+      <div id="slide-list-inner">
+        <%= yield %>
+      </div>
+    </div>
+
     <div id="help" class="reveal-modal">
        <h1>Help</h1>
        <p>? for help</p>
+       <p>l to list all slides</p>
        <p>&#9664; arrow for previous slide</p>
        <p>&#9658; arrow for next slide</p>
-       <p>Type 'X &lt;ENTER&gt;' to jump to a slide</p>
+       <p>'X &lt;ENTER&gt;' to jump to a slide</p>
        <a class="close-reveal-modal">&#215;</a>
     </div>
 
