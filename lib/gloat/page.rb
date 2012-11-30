@@ -13,6 +13,12 @@ module Gloat
       layout.render(self) { slides.map { |s| s.render }.join("\n") }
     end
 
+    def header
+    end
+
+    def footer
+    end
+
     def title
       config.settings.name
     end

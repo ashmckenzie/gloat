@@ -8,13 +8,12 @@
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="stylesheet" href="/assets/application.css" />
     <script src="/assets/application.js"></script>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
+    <link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css' />
   </head>
   <body>
     <header>
-      <p id="title"><%= title %></p>
-      <img src="/images/logo.png" />
+      <%= header %>
     </header>
 
     <section id="slides">
@@ -22,12 +21,12 @@
     </section>
 
     <footer>
+      <%= footer %>
     </footer>
 
     <script type="text/template" id="footer-template">
       {{= currentSlideNumber }} of {{= totalSlideNumber }} ({{= percentageComplete }}%)
     </script>
-
   </body>
 </html>
 

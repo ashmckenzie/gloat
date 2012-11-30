@@ -47,7 +47,7 @@
 ![Hooroo](/images/hooroo.png)
 
 
-!SLIDE
+!SLIDE classes="small-bullets"
 
 # The tech #
 
@@ -221,7 +221,6 @@ end
 <h2>Specific environment definition</h2>
 
 <pre data-language="ruby">
-
 describe 'Shrubbery', :environment => :shrubbery do
   include_context "Environment"
 end

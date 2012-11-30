@@ -20,6 +20,8 @@ jQuery ->
   Mousetrap.bind '?', ->
     alert('show help!')
 
+  # FIX loading of double slides for slides > 9
+  #
   for number in [ slideManager.totalSlideNumber()..1 ]
     do (number) ->
       numberAsString = (number).toString().split('').join(' ')
@@ -41,4 +43,6 @@ jQuery ->
       parseInt(startWithSlideNumber) > slideManager.totalSlideNumber()
     startWithSlideNumber = 1
 
-  slideManager.showSlide(parseInt(startWithSlideNumber))
+  _.delay =>
+    slideManager.showSlide(parseInt(startWithSlideNumber))
+  , 1000
