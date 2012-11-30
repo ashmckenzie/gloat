@@ -15,7 +15,8 @@ _.templateSettings = {
 jQuery ->
 
   slideManager = new Gloat.SlideManager($('#slides .slide'))
-  slideStateView = new Gloat.SlideStateView(el: $('footer'), model: slideManager)
+  slideStatusView = new Gloat.SlideStatusView(el: $('#slide-status'), model: slideManager)
+  slideManager.set('slideStatusView', slideStatusView)
 
   Mousetrap.bind '?', ->
     alert('show help!')
@@ -46,3 +47,5 @@ jQuery ->
   _.delay =>
     slideManager.showSlide(parseInt(startWithSlideNumber))
   , 1000
+
+  slideStatusView.setupHover()

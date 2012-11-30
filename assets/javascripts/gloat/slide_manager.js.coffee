@@ -2,9 +2,10 @@ Gloat.SlideManager = Backbone.Model.extend
 
   defaults:
     slides: []
+    slideStatusView: null
     currentSlideIndex: 0
 
-  initialize: (@selector) ->
+  initialize: (@selector, @slideStatusView) ->
     @selector.each (i, slide) =>
       @get('slides').push slide
 
@@ -34,9 +35,9 @@ Gloat.SlideManager = Backbone.Model.extend
 
     @set('currentSlideIndex', (slideNumber - 1))
     top = (@currentSlide().parent().height() - @currentSlide().height()) / 2
-    console.log @currentSlide().height()
     @currentSlide().css('top', top + 'px')
     @currentSlide().show()
+    @get('slideStatusView').show()
     window.location.hash = slideNumber
 
   nextSlide: ->
