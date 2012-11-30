@@ -24,18 +24,23 @@ body
 #slide-list
   display: none
   font-size: 30%
-  height: 202px
-  margin: 15px auto 30px auto
+  height: 206px
+  margin: 40px auto 30px auto
   overflow: auto
   #slide-list-inner
     width: 200000px
   .slide
     background-color: $background_color
-    width: 200px
-    overflow: hidden
-    height: 200px
+    border: 3px solid #fff
     float: left
-    border: 1px dotted #aaa
+    height: 200px
+    overflow: hidden
+    margin-right: 10px
+    width: 200px
+    &.current
+      border: 3px solid rgb(9, 235, 108)
+    &:hover
+      border: 3px solid blue // !important
     img
       width: 10%
 

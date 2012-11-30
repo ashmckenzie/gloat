@@ -29,17 +29,26 @@ Gloat.SlideManager = Backbone.Model.extend
   currentSlide: ->
     $(@get('slides')[@get('currentSlideIndex')])
 
+  currentSlideListSlide: ->
+    $('#slide-list [data-slide-number="' + @currentSlideNumber() + '"]')
+
   showSlide: (slideNumber) ->
-    $(@get('slides')).each (i, slide) =>
-      $(slide).hide()
+    @currentSlideListSlide().removeClass('current')
+    @currentSlide().hide()
 
     @set('currentSlideIndex', (slideNumber - 1))
     top = (@currentSlide().parent().height() - @currentSlide().height()) / 2
     @currentSlide().css('top', top + 'px')
     @currentSlide().show()
+
     @get('slideStatusView').show()
+    @currentSlideListSlide().addClass('current')
+    @scrollToSlideListCurrent()
 
     window.location.hash = slideNumber
+
+  scrollToSlideListCurrent: ->
+    @currentSlideListSlide()[0].scrollIntoView()
 
   nextSlide: ->
     if @get('currentSlideIndex') < (@totalSlideNumber() - 1)

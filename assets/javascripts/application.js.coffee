@@ -25,6 +25,10 @@ jQuery ->
 
   Mousetrap.bind 'l', ->
     $('#slide-list').toggle()
+    slideManager.scrollToSlideListCurrent()
+
+    $('#slide-list section').on 'click', ->
+      slideManager.showSlide($(@).data('slide-number'))
 
   Mousetrap.stopCallback = ->
     slideChanged == true
