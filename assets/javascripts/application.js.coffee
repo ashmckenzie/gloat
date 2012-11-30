@@ -14,6 +14,7 @@ _.templateSettings = {
 
 jQuery ->
 
+  slideChanged = false
   slideManager = new Gloat.SlideManager($('#slides .slide'))
   slideStatusView = new Gloat.SlideStatusView(el: $('#slide-status'), model: slideManager)
   slideManager.set('slideStatusView', slideStatusView)
@@ -21,14 +22,19 @@ jQuery ->
   Mousetrap.bind '?', ->
     alert('show help!')
 
-  # FIX loading of double slides for slides > 9
-  #
-  for number in [ slideManager.totalSlideNumber()..1 ]
+  Mousetrap.stopCallback = ->
+    slideChanged == true
+
+  for number in [ 1..slideManager.totalSlideNumber() ]
     do (number) ->
       numberAsString = (number).toString().split('').join(' ')
       Mousetrap.bind(numberAsString + ' enter', ->
         slideManager.showSlide(number)
-      , 'keydown')
+        slideChanged = true
+        _.delay =>
+          slideChanged = false
+        , 100
+      , 'keyup')
 
   Mousetrap.bind 'left', ->
     slideManager.previousSlide()

@@ -38,6 +38,7 @@ Gloat.SlideManager = Backbone.Model.extend
     @currentSlide().css('top', top + 'px')
     @currentSlide().show()
     @get('slideStatusView').show()
+
     window.location.hash = slideNumber
 
   nextSlide: ->
