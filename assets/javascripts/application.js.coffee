@@ -35,13 +35,12 @@ jQuery ->
     do (number) ->
       numberAsString = (number).toString().split('').join(' ')
       Mousetrap.bind(numberAsString + ' enter', ->
-        console.log(number)
         slideManager.showSlide(number)
         slideChanged = true
         _.delay =>
           slideChanged = false
         , 500
-      , 'keyup')
+      , 'keydown')
 
   Mousetrap.bind 'left', ->
     slideManager.previousSlide()
