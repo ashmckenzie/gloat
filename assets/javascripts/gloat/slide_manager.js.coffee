@@ -48,7 +48,7 @@ Gloat.SlideManager = Backbone.Model.extend
     window.location.hash = slideNumber
 
   scrollToSlideListCurrent: ->
-    @currentSlideListSlide()[0].scrollIntoView()
+    # @currentSlideListSlide()[0].scrollIntoView()
 
   nextSlide: ->
     if @get('currentSlideIndex') < (@totalSlideNumber() - 1)
@@ -59,3 +59,8 @@ Gloat.SlideManager = Backbone.Model.extend
     if @get('currentSlideIndex') > 0
       slideIndex = @get('currentSlideIndex') - 1
       @showSlide(slideIndex + 1)
+
+  setupSlideListClickEvent: ->
+    $('#slide-list section').on 'click', (event) =>
+      @showSlide($(event.currentTarget).data('slide-number'))
+

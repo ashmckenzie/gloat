@@ -1,5 +1,6 @@
 #= require vendor/jquery
 #= require vendor/jquery.reveal
+#= require vendor/jquery.scrollTo
 #= require vendor/underscore
 #= require vendor/backbone
 #= require vendor/mousetrap
@@ -26,9 +27,6 @@ jQuery ->
   Mousetrap.bind 'l', ->
     $('#slide-list').toggle()
     slideManager.scrollToSlideListCurrent()
-
-    $('#slide-list section').on 'click', ->
-      slideManager.showSlide($(@).data('slide-number'))
 
   Mousetrap.stopCallback = ->
     slideChanged == true
@@ -61,5 +59,7 @@ jQuery ->
   _.delay =>
     slideManager.showSlide(parseInt(startWithSlideNumber))
   , 1000
+
+  slideManager.setupSlideListClickEvent()
 
   slideStatusView.setupHover()
