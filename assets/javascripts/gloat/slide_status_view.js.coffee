@@ -1,12 +1,17 @@
 Gloat.SlideStatusView = Backbone.View.extend
 
+  timer: null
+
   initialize: ->
     @model.on 'change', @render, @
     @render()
 
   show: ->
     @$el.show().css(opacity: 1)
-    _.delay =>
+
+    clearTimeout(@timer) if @timer
+
+    @timer = _.delay =>
       @$el.animate({ opacity: 0 })
     , 3000
 

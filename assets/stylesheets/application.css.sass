@@ -14,7 +14,6 @@ body
 
 body
   margin: 0
-  // overflow: hidden
   padding: 0
 
 #slides, #slides .slide, #slide-list
@@ -23,7 +22,7 @@ body
 
 #slide-list
   display: none
-  font-size: 30%
+  font-size: 20%
   height: 206px
   margin: 40px auto 30px auto
   overflow: auto
@@ -34,13 +33,19 @@ body
     border: 3px solid #fff
     float: left
     height: 200px
+    opacity: 0.2
     overflow: hidden
     margin-right: 10px
     width: 200px
-    &.current
-      border: 3px solid rgb(9, 235, 108)
     &:hover
-      border: 3px solid blue // !important
+      cursor: pointer
+    .slide-inner
+      position: relative
+    &.current
+      opacity: 1
+      border: 3px solid #39E421
+    &:hover
+      opacity: 1
     img
       width: 10%
 
@@ -62,7 +67,6 @@ body
 //----------------------------------------------------------------------------//
 
 .slide
-  font-size: 1em
   text-align: center
   pre
     background-color: #222
@@ -74,12 +78,12 @@ body
     text-align: left
     width: $width - 80px
   p
-    font-size: 1.8em
+    font-size: 182%
   img
     padding: 0 1%
   h1
     font-size: 4.0em
-    margin: 0 0 0.6em 0
+    margin: 0 0 4% 0
   h2
     font-size: 2.8em
     margin: 0.4em 0 1em 0
@@ -94,7 +98,7 @@ body
       line-height: 196%
   &.small-bullets
     li
-      font-size: 2.2em
+      font-size: 220%
       line-height: 206%
   &.small-bullets-x2
     li

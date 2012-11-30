@@ -1,6 +1,5 @@
 #= require vendor/jquery
 #= require vendor/jquery.reveal
-#= require vendor/jquery.scrollTo
 #= require vendor/underscore
 #= require vendor/backbone
 #= require vendor/mousetrap
@@ -26,6 +25,7 @@ jQuery ->
 
   Mousetrap.bind 'l', ->
     $('#slide-list').toggle()
+    slideManager.setupSlideListHeights()
     slideManager.scrollToSlideListCurrent()
 
   Mousetrap.stopCallback = ->
@@ -35,11 +35,12 @@ jQuery ->
     do (number) ->
       numberAsString = (number).toString().split('').join(' ')
       Mousetrap.bind(numberAsString + ' enter', ->
+        console.log(number)
         slideManager.showSlide(number)
         slideChanged = true
         _.delay =>
           slideChanged = false
-        , 100
+        , 500
       , 'keyup')
 
   Mousetrap.bind 'left', ->
