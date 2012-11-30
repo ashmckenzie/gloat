@@ -1,4 +1,5 @@
 #= require vendor/jquery
+#= require vendor/jquery.reveal
 #= require vendor/underscore
 #= require vendor/backbone
 #= require vendor/mousetrap
@@ -20,7 +21,7 @@ jQuery ->
   slideManager.set('slideStatusView', slideStatusView)
 
   Mousetrap.bind '?', ->
-    alert('show help!')
+    $('#help').reveal();
 
   Mousetrap.stopCallback = ->
     slideChanged == true
