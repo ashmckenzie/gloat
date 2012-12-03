@@ -1,16 +1,15 @@
 module Gloat
   class Page
 
-    attr_reader :config, :slides, :layout_name
+    attr_reader :config, :layout_name
 
-    def initialize config, slides, layout_name='default'
+    def initialize config, layout_name='default'
       @config = config
-      @slides = slides
       @layout_name = layout_name
     end
 
     def render
-      layout.render(self) { slides.map { |s| s.render }.join("\n") }
+      layout.render(self)
     end
 
     def header

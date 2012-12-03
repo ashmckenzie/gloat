@@ -20,7 +20,7 @@ module Gloat
     end
 
     get '/' do
-      Gloat::Page.new(config, [], 'experiment').render
+      Gloat::Page.new(config).render
     end
 
     get '/slides' do
@@ -28,22 +28,11 @@ module Gloat
       JSON(Gloat::Slides.new(config).for_json)
     end
 
-    # get '/slide/:number' do
-    #   content_type :json
-    #   number = (params[:number].to_i - 1)
-    #   JSON(Gloat::Slides.new(config).get(number).for_json)
-    #   # slides[number].render
-    # end
-
     get '/images/:image' do |image|
       send_file File.expand_path(File.join('..', '..', '..', 'slides', 'images', image), __FILE__)
     end
 
     private
-
-    # def slides
-    #   Gloat::Slides.new(config).slides
-    # end
 
     def config
       Gloat::Config.new

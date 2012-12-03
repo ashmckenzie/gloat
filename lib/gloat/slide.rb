@@ -3,7 +3,7 @@ module Gloat
 
     attr_reader :number, :template_name
 
-    def initialize config, number, raw_options, raw_markup, extension, template_name='experiment'
+    def initialize config, number, raw_options, raw_markup, extension, template_name='default'
       @config = config
       @number = number
       @raw_options = raw_options
