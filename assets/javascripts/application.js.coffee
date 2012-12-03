@@ -20,5 +20,8 @@ jQuery ->
   window.slideManagerViewModel = new Gloat.SlideManagerViewModel()
 
   new Gloat.SlideManagerRouting(window.slideManagerViewModel)
-  new Gloat.SlideManagerKeyBindings(window.slideManagerViewModel)
-  ko.applyBindings(window.slideManagerViewModel)
+
+  _.delay =>
+    new Gloat.SlideManagerKeyBindings(window.slideManagerViewModel)
+    ko.applyBindings(window.slideManagerViewModel)
+  , 0

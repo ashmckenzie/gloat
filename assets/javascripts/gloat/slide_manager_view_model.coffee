@@ -37,6 +37,9 @@ window.Gloat.SlideManagerViewModel = class SlideManagerViewModel
     if @slideListVisible()
       @scrollToSlideListCurrent()
 
+  parseAnyCodeFragments: ->
+    Rainbow.color()
+
   slideListClick: (slide) ->
     location.hash = slide.number()
 

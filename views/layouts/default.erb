@@ -19,7 +19,7 @@
     </section>
 
     <section id="slide">
-      <div data-bind="template: { name: 'slide-template', data: currentSlide() }"></div>
+      <div data-bind="template: { name: 'slide-template', data: currentSlide(), afterRender: parseAnyCodeFragments }"></div>
 
       <div id="slide-position" data-bind="fadeOut: currentSlide()">
         <span data-bind="text: currentSlide().number()"></span> / <span data-bind="text: totalSlideNumber()"></span>
@@ -45,7 +45,7 @@
 
     <script type="text/html" id="slide-list-template">
       <div class="slide" data-bind="attr: { 'data-slide-number': number() }, css: cssClasses(), click: $parent.slideListClick">
-        <div class="slide-outer" data-bind="css: { current: $root.currentSlide().number() == number() }">
+        <div class="slide-outer" data-bind="css: { current: $root.currentSlide() && $root.currentSlide().number() == number() }">
           <p class="slide-number-background">
             #<span data-bind="text: number()"></span>
           </p>
