@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title><%= title %></title>
+    <meta charset="utf-8"
+    <meta name="author" content="<%= author %>" />
+    <meta name="description" content="<%= description %>" />
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="/assets/application.css" />
+    <script src="/assets/application.js"></script>
+  </head>
+  <body>
+    <header>
+      <%= header %>
+    </header>
+
+    <section id="slide-list" data-bind="visible: slideListVisible">
+      <div id="slide-list-inner" data-bind="template: { name: 'slide-list-template', foreach: slides() }"></div>
+    </section>
+
+    <section id="slide">
+      <div data-bind="template: { name: 'slide-template', data: currentSlide() }"></div>
+
+      <div id="slide-position" data-bind="fadeOut: currentSlide()">
+        <span data-bind="text: currentSlide().number()"></span> / <span data-bind="text: totalSlideNumber()"></span>
+        <span>(<span data-bind="text: percentComplete()"></span>%)</span>
+      </div>
+    </section>
+
+    <footer>
+      <%= footer %>
+    </footer>
+
+    <div id="help" class="reveal-modal">
+       <h1>Help</h1>
+       <p>? for help</p>
+       <p>l to list all slides</p>
+       <p>'g s' to got to start of slides</p>
+       <p>'g e' to got to end of slides</p>
+       <p>&#9664; arrow for previous slide</p>
+       <p>&#9658; arrow for next slide</p>
+       <p>'X &lt;ENTER&gt;' to jump to a slide</p>
+       <a class="close-reveal-modal">&#215;</a>
+    </div>
+
+    <script type="text/html" id="slide-list-template">
+      <div class="slide" data-bind="attr: { 'data-slide-number': number() }, css: cssClasses(), click: $parent.slideListClick">
+        <div class="slide-outer" data-bind="css: { current: $root.currentSlide().number() == number() }">
+          <p class="slide-number-background">
+            #<span data-bind="text: number()"></span>
+          </p>
+          <div class="slide-inner" data-bind="html: html()"></div>
+        </div>
+      </div>
+    </script>
+
+    <script type="text/html" id="slide-template">
+      <div class="slide" data-bind="attr: { 'data-slide-number': number() }, css: cssClasses()">
+        <div class="slide-inner" data-bind="html: html()"></div>
+      </div>
+    </script>
+
+  </body>
+</html>
+

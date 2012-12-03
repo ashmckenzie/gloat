@@ -3,7 +3,7 @@ module Gloat
 
     attr_reader :number, :template_name
 
-    def initialize config,number, raw_options, raw_markup, extension, template_name='default'
+    def initialize config, number, raw_options, raw_markup, extension, template_name='experiment'
       @config = config
       @number = number
       @raw_options = raw_options
@@ -39,8 +39,14 @@ module Gloat
       end
     end
 
-    def language
-      options.fetch('language', @config.default_language)
+    def for_json
+      markup = render
+
+      {
+        number: number,
+        css_classes: @options.classes,
+        html: markup
+      }
     end
 
     def render
@@ -50,6 +56,10 @@ module Gloat
     end
 
     private
+
+    def language
+      options.fetch('language', @config.default_language)
+    end
 
     def template
       @template ||= Tilt::ERBTemplate.new(template_file)

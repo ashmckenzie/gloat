@@ -4,6 +4,7 @@ Bundler.require(:default, :development)
 require 'sinatra/base'
 require "sinatra/reloader"
 require 'sprockets'
+require 'json'
 
 dirs = [
   File.expand_path('../../../lib/gloat/support', __FILE__),

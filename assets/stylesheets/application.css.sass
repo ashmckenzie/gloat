@@ -1,9 +1,36 @@
 //= require_tree ./vendor
 
-$width: 1024px
-$height: 768px
+//----------------------------------------------------------------------------//
+
+$main_slide_width: 1024px
+$main_slide_height: 768px
+
+$slide_list_slide_width: 190px
+$slide_list_slide_height: 190px
 
 $background_color: #fff
+
+//----------------------------------------------------------------------------//
+
+@font-face
+  font-family: 'Droid Sans Mono'
+  font-style: normal
+  font-weight: normal
+  src: local('Droid Sans Mono'), local('DroidSansMono'), url('DroidSansMono.ttf') format('truetype')
+
+@font-face
+  font-family: 'Open Sans'
+  font-style: normal
+  font-weight: normal
+  src: local('Open Sans'), local('OpenSans'), url('OpenSans-Regular.ttf') format('truetype')
+
+@font-face
+  font-family: 'Open Sans'
+  font-style: normal
+  font-weight: bold
+  src: local('Open Sans'), local('OpenSans'), url('OpenSans-Bold.ttf') format('truetype')
+
+//----------------------------------------------------------------------------//
 
 body
   background: url("background.png") transparent repeat fixed
@@ -16,57 +43,76 @@ body
   margin: 0
   padding: 0
 
-#slides, #slides .slide, #slide-list
+#slide, #slide .slide, #slide-list
   margin: 0 auto
-  width: $width
+  width: $main_slide_width
 
 #slide-list
-  display: none
   font-size: 20%
   height: 206px
-  margin: 40px auto 30px auto
+  margin: 10px auto
   overflow: auto
   #slide-list-inner
     width: 200000px
   .slide
-    background-color: $background_color
-    border: 3px solid #fff
     float: left
-    height: 200px
-    opacity: 0.2
-    overflow: hidden
     margin-right: 10px
-    width: 200px
-    &:hover
-      cursor: pointer
-    .slide-inner
-      position: relative
-    &.current
-      opacity: 1
-      border: 3px solid #39E421
-    &:hover
-      opacity: 1
-    img
-      width: 10%
+    position: relative
+    p.slide-number-background
+      font-size: 14em
+      position: absolute
+      margin: 0
+      padding: 0
+      color: #ddd
+      // text-align: center
+      text-align: right
+      top: -8px
+      right: 6px
+      width: $slide_list_slide_width
+    .slide-outer
+      background-color: $background_color
+      border: 3px solid #fff
+      display: table-cell
+      height: $slide_list_slide_height
+      opacity: 0.2
+      overflow: hidden
+      vertical-align: middle
+      width: $slide_list_slide_width
+      &.current
+        opacity: 1
+        border: 3px solid #FF00EB
+      p
+        margin: 1%
+      &:hover
+        opacity: 1
+        cursor: pointer
+      .slide-inner
+        max-height: $slide_list_slide_height
+        position: relative
+        max-width: $slide_list_slide_width
+      img
+        width: 10%
 
-#slides
+#slide
   background-color: $background_color
-  height: $height
+  height: $main_slide_height
   position: relative
-  #slide-status
+  #slide-position
     bottom: 10px
     color: #aaa
-    display: none
     font-size: 0.9em
     left: 10px
     position: absolute
   .slide
-    display: none
-    position: absolute
+    height: $main_slide_height
+    .slide-inner
+      display: table-cell
+      vertical-align: middle
 
 //----------------------------------------------------------------------------//
 
 .slide
+  display: table
   text-align: center
   pre
     background-color: #222
@@ -76,7 +122,7 @@ body
     padding: 2%
     margin: 0 auto
     text-align: left
-    width: $width - 80px
+    width: $main_slide_width - 80px
   p
     font-size: 182%
   img

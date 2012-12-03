@@ -22,5 +22,18 @@ module Gloat
         slides
       end
     end
+
+    def get number
+      slides[number]
+    end
+
+    def for_json
+      all_slides = slides
+
+      {
+        total: all_slides.count,
+        slides: all_slides.map { |s| s.for_json }
+      }
+    end
   end
 end
