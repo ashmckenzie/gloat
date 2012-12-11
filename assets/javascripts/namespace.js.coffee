@@ -1,1 +1,3 @@
-window.Gloat = {}
+window.Gloat = {
+  bootstrap: {}
+}

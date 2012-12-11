@@ -43,21 +43,18 @@
        <a class="close-reveal-modal">&#215;</a>
     </div>
 
+    <script type="text/javascript">
+      Gloat.bootstrap = {
+        slides: <%= slides.for_json.to_json.html_safe %>
+      };
+    </script>
+
     <script type="text/html" id="slide-list-template">
-      <div class="slide" data-bind="attr: { 'data-slide-number': number() }, css: cssClasses(), click: $parent.slideListClick">
-        <div class="slide-outer" data-bind="css: { current: $root.currentSlide() && $root.currentSlide().number() == number() }">
-          <p class="slide-number-background">
-            #<span data-bind="text: number()"></span>
-          </p>
-          <div class="slide-inner" data-bind="html: html()"></div>
-        </div>
-      </div>
+      <%= slide_list_template %>
     </script>
 
     <script type="text/html" id="slide-template">
-      <div class="slide" data-bind="attr: { 'data-slide-number': number() }, css: cssClasses()">
-        <div class="slide-inner" data-bind="html: html()"></div>
-      </div>
+      <%= slide_template %>
     </script>
 
   </body>

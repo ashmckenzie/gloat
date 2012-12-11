@@ -12,6 +12,7 @@ gem 'coffee-script'
 gem 'sass'
 gem 'haml'
 gem 'hashie'
+gem 'activesupport'
 
 group :development do
   gem 'thin'
