@@ -44,7 +44,7 @@
 * Provides accomodation booking and inspirational content
 * Emphasis on strong visuals and ease of use
 
-![Hooroo](./images/hooroo.png)
+![Hooroo](/images/hooroo.png)
 
 
 !SLIDE classes="small-bullets"
@@ -56,13 +56,13 @@
 * nginx, Unicorn, HAProxy
 * PostgreSQL 9.x, Redis
 
-![engine_yard](./images/engine_yard.png)
-![ruby](./images/ruby.png)
-![rails](./images/rails.png)
-![nginx](./images/nginx.png)
-![unicorn](./images/unicorn.png)
-![postgres](./images/postgres.png)
-![redis](./images/redis.png)
+![engine_yard](/images/engine_yard.png)
+![ruby](/images/ruby.png)
+![rails](/images/rails.png)
+![nginx](/images/nginx.png)
+![unicorn](/images/unicorn.png)
+![postgres](/images/postgres.png)
+![redis](/images/redis.png)
 
 !SLIDE classes="small-bullets"
 
@@ -74,9 +74,9 @@
 * pry allows you to 'freeze' execution and interact
 * Zeus - significantly speeds up development & testing
 
-![backbone](./images/backbone.png)
-![pry](./images/pry.png)
-![coffeescript](./images/coffeescript.png)
+![backbone](/images/backbone.png)
+![pry](/images/pry.png)
+![coffeescript](/images/coffeescript.png)
 
 !SLIDE classes="small-bullets"
 
@@ -97,7 +97,7 @@
 * Deployment is a single click affair in Jenkins
 
 <br/>
-![deploy](./images/deploy.png)
+![deploy](/images/deploy.png)
 
 !SLIDE classes="small-bullets"
 
@@ -117,13 +117,13 @@
 * Great [RailsCast](http://railscasts.com/episodes/373-zero-downtime-deployment) recently covered all the gotchas
 
 <br/>
-![maintenance](./images/maintenance.png)
+![maintenance](/images/maintenance.png)
 
 !SLIDE classes="small-bullets-x2"
 
 # Asynchronous Airbrake #
 
-![airbrake](./images/airbrake.png)
+![airbrake](/images/airbrake.png)
 
 * Airbrake is great, but can be slow (submitting & their UI)
 * New Relic RPM revealed delays in submitting (up to 3 secs)

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title><%= title %></title>
+    <meta charset="utf-8"
+    <meta name="author" content="<%= author %>" />
+    <meta name="description" content="<%= description %>" />
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="/assets/application.css" />
+    <script src="/assets/application.js"></script>
+  </head>
+  <body>
+    <header>
+      <%= header %>
+    </header>
+
+    <section id="slide-list" data-bind="visible: slideListVisible">
+      <div id="slide-list-inner" data-bind="template: { name: 'slide-list-template', foreach: slides() }"></div>
+    </section>
+
+    <section id="slide">
+      <div data-bind="template: { name: 'slide-template', data: currentSlide(), afterRender: parseAnyCodeFragments }"></div>
+
+      <div id="slide-position" data-bind="fadeOut: currentSlide()">
+        <span data-bind="text: currentSlide().number()"></span> / <span data-bind="text: totalSlideNumber()"></span>
+        <span>(<span data-bind="text: percentComplete()"></span>%)</span>
+      </div>
+    </section>
+
+    <footer>
+      <%= footer %>
+    </footer>
+
+    <div id="help" class="reveal-modal">
+       <h1>Help</h1>
+       <p>? for help</p>
+       <p>d to show available decks</p>
+       <p>l to list all slides</p>
+       <p>'g s' to got to start of slides</p>
+       <p>'g e' to got to end of slides</p>
+       <p>&#9664; arrow for previous slide</p>
+       <p>&#9658; arrow for next slide</p>
+       <p>'X &lt;ENTER&gt;' to jump to a slide</p>
+       <a class="close-reveal-modal">&#215;</a>
+    </div>
+
+    <script type="text/javascript">
+      Gloat.bootstrap = {
+        slides: <%= slides.for_json.to_json.html_safe %>
+      };
+    </script>
+
+    <script type="text/html" id="slide-list-template">
+      <%= slide_list_template %>
+    </script>
+
+    <script type="text/html" id="slide-template">
+      <%= slide_template %>
+    </script>
+
+  </body>
+</html>
+

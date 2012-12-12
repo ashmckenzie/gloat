@@ -20,7 +20,6 @@ window.Gloat.SlideManagerViewModel = class SlideManagerViewModel
       ((currentSlide / @totalSlideNumber()) * 100).toFixed()
 
       @processSlides Gloat.bootstrap.slides
-    # @_getSlides()
 
   gotoNextSlide: ->
     if @currentSlide().number() < @totalSlideNumber()
@@ -59,6 +58,3 @@ window.Gloat.SlideManagerViewModel = class SlideManagerViewModel
     if (currentIndex >= 0)
       amount = (206 * currentIndex) - (206 * 2)
       $('#slide-list').scrollLeft(amount)
-
-  _getSlides: ->
-    $.ajax async: false, type: 'GET', url: '/slides', success: @processSlides

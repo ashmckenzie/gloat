@@ -40,12 +40,17 @@ module Gloat
     end
 
     def for_json
-      markup = render
+      markup = Nokogiri::HTML(render)
+
+      markup.css('img').each do |x|
+        next unless x.attribute('src')
+        x.attribute('src').value = "." + x.attribute('src').value
+      end
 
       {
         number: number,
         css_classes: @options.classes,
-        html: markup
+        html: markup.to_s
       }
     end
 

@@ -1,4 +1,5 @@
-//= require_tree ./vendor
+//= require vendor
+//= require base
 
 //----------------------------------------------------------------------------//
 
@@ -8,40 +9,9 @@ $main_slide_height: 768px
 $slide_list_slide_width: 190px
 $slide_list_slide_height: 190px
 
-$background_color: #fff
+$slide_background_color: #fff
 
 //----------------------------------------------------------------------------//
-
-@font-face
-  font-family: 'Droid Sans Mono'
-  font-style: normal
-  font-weight: normal
-  src: local('Droid Sans Mono'), local('DroidSansMono'), url('Droid_Sans_Mono/DroidSansMono.ttf') format('truetype')
-
-@font-face
-  font-family: 'Open Sans'
-  font-style: normal
-  font-weight: normal
-  src: local('Open Sans'), local('OpenSans'), url('Open_Sans/OpenSans-Regular.ttf') format('truetype')
-
-@font-face
-  font-family: 'Open Sans'
-  font-style: normal
-  font-weight: bold
-  src: local('Open Sans'), local('OpenSans'), url('Open_Sans/OpenSans-Bold.ttf') format('truetype')
-
-//----------------------------------------------------------------------------//
-
-body
-  background: url("background.png") transparent repeat fixed
-  font-family: 'Open Sans', sans-serif
-  font-size: 100%
-  margin: 0
-  padding: 0
-
-body
-  margin: 0
-  padding: 0
 
 #slide, #slide .slide, #slide-list
   margin: 0 auto
@@ -69,7 +39,7 @@ body
       right: 6px
       width: $slide_list_slide_width
     .slide-outer
-      background-color: $background_color
+      background-color: $slide_background_color
       border: 3px solid #fff
       display: table-cell
       height: $slide_list_slide_height
@@ -93,7 +63,7 @@ body
         width: 10%
 
 #slide
-  background-color: $background_color
+  background-color: $slide_background_color
   height: $main_slide_height
   position: relative
   #slide-position

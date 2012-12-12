@@ -1,0 +1,9 @@
+<h1>Available decks</h1>
+
+<ul>
+<% decks.each do |deck| %>
+  <li>
+    <a href="/decks/<%= deck.slug %>" title="<%= deck.name %>"><%= deck.name %></a>
+  </li>
+<% end %>
+</ul>

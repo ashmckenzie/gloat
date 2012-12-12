@@ -1,8 +1,11 @@
 module Gloat
   class Slides
 
-    def initialize config
+    SLIDE_EXTENSIONS = %w{ slide textile md haml erb html }
+
+    def initialize config, deck
       @config = config
+      @deck = deck
     end
 
     def slides
@@ -10,7 +13,7 @@ module Gloat
       header_regex = /^!SLIDE\s*/
       slide_regex = /(?m)#{header_regex}.*?(?=#{header_regex}|\Z)/
 
-      @config.slides.inject([]) do |slides, file|
+      raw_slides.inject([]) do |slides, file|
         next unless File.exist?(file)
         File.read(file).scan(slide_regex).each do |s|
           if m = s.match(/^!SLIDE\s?(?<options>[^\n]*)\n\n(?<raw>[^\n].*)$/m)
@@ -23,10 +26,6 @@ module Gloat
       end
     end
 
-    def get number
-      slides[number]
-    end
-
     def for_json
       all_slides = slides
 
@@ -34,6 +33,34 @@ module Gloat
         total: all_slides.count,
         slides: all_slides.map { |s| s.for_json }
       }
+    end
+
+    private
+
+    def raw_slides
+      deck = deck_by_slug
+      raise 'No slides configured!' unless deck
+      deck.slides.inject([]) do |slides, entry|
+        if File.directory?(entry)
+          entries = Dir[File.expand_path(File.join('..', '..', '..', entry, '*'), __FILE__)]
+        else
+          entries = [ File.expand_path(File.join('..', '..', '..', entry), __FILE__) ]
+        end
+        slides += process_slides(entries)
+      end
+    end
+
+    def deck_by_slug
+      @config.settings.decks.detect { |x| x.slug == @deck }
+    end
+
+    def process_slides entries
+      entries.inject([]) do |slides, entry|
+        if SLIDE_EXTENSIONS.include?(Pathname.new(entry).extname.gsub(/^\./, ''))
+          slides << entry
+        end
+        slides
+      end
     end
   end
 end

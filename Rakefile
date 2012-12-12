@@ -17,22 +17,23 @@ task :static do
   FileUtils.mkdir_p('./tmp/assets')
 
   File.open('./tmp/index.html', 'w') do |file|
-    markup = Nokogiri::HTML Gloat::Page.new(config).render
 
-    markup.css('link').each do |e|
-      next unless e.attribute('href')
-      e.attribute('href').value = "." + e.attribute('href').value
+    markup = Nokogiri::HTML(Gloat::Page::Deck.new(config, 'operations-at-hooroo').render)
+
+    markup.css('link').each do |x|
+      next unless x.attribute('href')
+      x.attribute('href').value = "." + x.attribute('href').value
     end
 
-    markup.css('script').each do |e|
-      next unless e.attribute('src')
-      e.attribute('src').value = "." + e.attribute('src').value
+    markup.css('script').each do |x|
+      next unless x.attribute('src')
+      x.attribute('src').value = "." + x.attribute('src').value
     end
 
     file.write markup.to_s
   end
 
-  %w{ application.js application.css }.each do |file|
+  %w{ vendor.js application.js base.css vendor.css application.css }.each do |file|
     File.open("./tmp/assets/#{file}", 'w') do |f|
       f.write env[file].to_s
     end

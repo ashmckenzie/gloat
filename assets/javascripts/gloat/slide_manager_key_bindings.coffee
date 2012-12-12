@@ -11,6 +11,9 @@ window.Gloat.SlideManagerKeyBindings = class SlideManagerKeyBindings
     Mousetrap.bind 'escape', ->
       @slideManagerViewModel.toggleSlideList(false)
 
+    Mousetrap.bind 'd', ->
+      location.href = '/'
+
     Mousetrap.bind 'l', ->
       @slideManagerViewModel.toggleSlideList()
 

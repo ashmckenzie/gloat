@@ -20,12 +20,15 @@ module Gloat
     end
 
     get '/' do
-      Gloat::Page.new(config).render
+      if config.settings.decks.size > 1
+        Gloat::Page::Erb.new(config, 'index').render
+      else
+        redirect "/decks/#{config.settings.decks.first.slug}"
+      end
     end
 
-    get '/slides' do
-      content_type :json
-      JSON(Gloat::Slides.new(config).for_json)
+    get '/decks/:deck' do |deck|
+      Gloat::Page::Deck.new(config, deck).render
     end
 
     get '/images/:image' do |image|
