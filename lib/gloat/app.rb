@@ -20,10 +20,12 @@ module Gloat
     end
 
     get '/' do
-      if config.settings.decks.size > 1
-        Gloat::Page::Erb.new(config, 'index').render
+      decks = config.decks
+
+      unless decks.empty?
+        Gloat::Page::Basic.new(config, 'index', { decks: decks }).render
       else
-        redirect "/decks/#{config.settings.decks.first.slug}"
+        redirect "/decks/#{decks.first.slug}"
       end
     end
 

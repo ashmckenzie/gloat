@@ -22,15 +22,15 @@ module Gloat
       end
 
       def title
-        config.settings.name
+        config.name
       end
 
       def description
-        config.settings.description
+        config.description
       end
 
       def author
-        config.settings.author
+        config.author
       end
 
       private
@@ -39,12 +39,16 @@ module Gloat
         @view_path ||= File.expand_path(File.join('..', '..', '..', '..', 'views'), __FILE__)
       end
 
+      def template_path
+        @template_path ||= File.expand_path(File.join(view_path, 'templates'), __FILE__)
+      end
+
       def layout
         @layout ||= Tilt::ERBTemplate.new(layout_file)
       end
 
       def layout_file
-        File.expand_path(File.join(view_path, 'layouts', "#{layout_name}.erb"), __FILE__)
+        @layout_file ||= File.expand_path(File.join(view_path, 'layouts', "#{layout_name}.erb"), __FILE__)
       end
     end
   end

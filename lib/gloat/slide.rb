@@ -14,21 +14,22 @@ module Gloat
 
     def options
       @options ||= begin
-        h = @raw_options.scan(/([^=]+)="([^"]+)"/).inject({}) { |hash, item| hash[item[0]] = item[1]; hash }
-        Hashie::Mash.new(h)
+        Hashie::Mash.new(
+          @raw_options.scan(/([^=]+)="([^"]+)"/).inject({}) { |hash, item| hash[item[0]] = item[1]; hash }
+        )
       end
     end
 
-    def markup
+    def markup &blk
       @markup ||= begin
 
         if @extension == 'slide' || language != @config.default_language
-          check = language
+          lang = language
         else
-          check = @extension
+          lang = @extension
         end
 
-        case check
+        markup = case lang
           when 'textile' then Tilt::RedClothTemplate.new { @raw_markup }.render
           when 'haml' then Tilt::HamlTemplate.new { @raw_markup }.render
           when 'erb' then Tilt::ErubisTemplate.new { @raw_markup.gsub(/<.+>\n* */) { |m| m.gsub(/>\n* *$/, '>') } }.render
@@ -36,31 +37,55 @@ module Gloat
           when /markdown|md/ then Tilt::RDiscountTemplate.new { @raw_markup }.render
           else raise 'Unknown language'
         end
+
+        Nokogiri::HTML::fragment(markup)
       end
     end
 
     def for_json
-      markup = Nokogiri::HTML(render)
+      {
+        number: number,
+        css_classes: options.classes,
+        html: render.to_s
+      }
+    end
 
-      markup.css('img').each do |x|
-        next unless x.attribute('src')
-        x.attribute('src').value = "." + x.attribute('src').value
-      end
+    def for_json_static
+      html = rewrite_markup(render)
 
       {
         number: number,
-        css_classes: @options.classes,
-        html: markup.to_s
+        css_classes: options.classes,
+        html: html.to_s
       }
     end
 
     def render
       @render ||= begin
-        template.render(self)
+        Nokogiri::HTML::fragment(template.render(self))
       end
     end
 
     private
+
+    def rewrite_markup markup
+
+      # images
+      #
+      markup.css('img').each do |x|
+        next if !x.attribute('src') || x.attribute('src').value.match(/^http/)
+        x.attribute('src').value = "." + x.attribute('src').value
+      end
+
+      # links
+      #
+      markup.css('a').each do |x|
+        next if !x.attribute('href') || x.attribute('href').value.match(/^http/)
+        x.attribute('href').value = "." + x.attribute('href').value
+      end
+
+      markup.to_s
+    end
 
     def language
       options.fetch('language', @config.default_language)

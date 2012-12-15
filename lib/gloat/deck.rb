@@ -1,11 +1,11 @@
 module Gloat
-  class Slides
+  class Deck
 
     SLIDE_EXTENSIONS = %w{ slide textile md haml erb html }
 
-    def initialize config, deck
+    def initialize config, deck_name
       @config = config
-      @deck = deck
+      @deck_name = deck_name
     end
 
     def slides
@@ -35,11 +35,21 @@ module Gloat
       }
     end
 
+    def for_json_static
+      all_slides = slides
+
+      {
+        total: all_slides.count,
+        slides: all_slides.map { |s| s.for_json_static }
+      }
+    end
+
     private
 
     def raw_slides
       deck = deck_by_slug
       raise 'No slides configured!' unless deck
+
       deck.slides.inject([]) do |slides, entry|
         if File.directory?(entry)
           entries = Dir[File.expand_path(File.join('..', '..', '..', entry, '*'), __FILE__)]
@@ -51,7 +61,7 @@ module Gloat
     end
 
     def deck_by_slug
-      @config.settings.decks.detect { |x| x.slug == @deck }
+      @config.decks.detect { |x| x.slug == @deck_name }
     end
 
     def process_slides entries

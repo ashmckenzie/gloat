@@ -4,4 +4,4 @@ require 'sinatra/base'
 require "sinatra/reloader"
 require 'sprockets'
 
-run Gloat::App.run!
+run Gloat::App

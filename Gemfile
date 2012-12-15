@@ -22,5 +22,3 @@ group :development do
   gem 'pry-remote'
   gem 'pry-debugger'
 end
-
-source :rubygems
