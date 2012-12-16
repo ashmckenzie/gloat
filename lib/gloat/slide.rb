@@ -1,6 +1,8 @@
 module Gloat
   class Slide
 
+    VALID_EXTENSIONS = %w{ slide textile md haml erb html }
+
     attr_reader :number, :template_name
 
     def initialize config, number, raw_options, raw_markup, extension, template_name='default'
@@ -10,6 +12,11 @@ module Gloat
       @raw_markup = raw_markup
       @extension = extension
       @template_name = template_name
+    end
+
+    def self.file_valid? filename
+      file = Pathname.new(filename)
+      file.exist? && VALID_EXTENSIONS.include?(file.extname.gsub(/^\./, ''))
     end
 
     def options
@@ -51,12 +58,10 @@ module Gloat
     end
 
     def for_json_static
-      html = rewrite_markup(render)
-
       {
         number: number,
         css_classes: options.classes,
-        html: html.to_s
+        html: rewrite_markup(render).to_s
       }
     end
 

@@ -35,12 +35,16 @@ module Gloat
 
       private
 
-      def view_path
-        @view_path ||= File.expand_path(File.join('..', '..', '..', '..', 'views'), __FILE__)
+      def views_path
+        @views_path ||= config.views_path
       end
 
-      def template_path
-        @template_path ||= File.expand_path(File.join(view_path, 'templates'), __FILE__)
+      def templates_path
+        @templates_path ||= config.templates_path
+      end
+
+      def layouts_path
+        @layouts_path ||= config.layouts_path
       end
 
       def layout
@@ -48,7 +52,7 @@ module Gloat
       end
 
       def layout_file
-        @layout_file ||= File.expand_path(File.join(view_path, 'layouts', "#{layout_name}.erb"), __FILE__)
+        @layout_file ||= File.join(layouts_path, "#{layout_name}.erb")
       end
     end
   end

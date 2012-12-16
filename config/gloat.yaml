@@ -7,10 +7,12 @@ decks:
   -
     slug: operations-at-hooroo
     name: Operationst at Hooroo
+    theme: round
     slides:
-      - slides/operations_at_hooroo.md
+      - operations_at_hooroo.md
   -
     slug: operations-at-hooroo-ng
     name: Operationst at Hooroo NG
+    theme: dark-linen
     slides:
-      - slides/operations_at_hooroo_ng.md
+      - operations_at_hooroo_ng.md

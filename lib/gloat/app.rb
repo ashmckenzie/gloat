@@ -9,14 +9,12 @@ module Gloat
       end
     end
 
-    set :views, File.expand_path(File.join('..', '..', '..', 'views'), __FILE__)
-    set :public_folder, File.expand_path(File.join('..', '..', '..', 'public'), __FILE__)
-
     use Gloat::Support::SprocketsMiddleware, %r{/assets} do |env|
       env.append_path "assets/stylesheets"
       env.append_path "assets/javascripts"
       env.append_path "assets/images"
       env.append_path "assets/fonts"
+      env.append_path "assets"
     end
 
     get '/' do
@@ -29,18 +27,19 @@ module Gloat
       end
     end
 
-    get '/decks/:deck' do |deck|
+    get '/decks/:deck_slug' do |deck_slug|
+      deck = Gloat::DeckConfig.new(config, deck_slug)
       Gloat::Page::Deck.new(config, deck).render
     end
 
     get '/images/:image' do |image|
-      send_file File.expand_path(File.join('..', '..', '..', 'slides', 'images', image), __FILE__)
+      send_file File.join(config.slides_images_path, image)
     end
 
     private
 
     def config
-      Gloat::Config.new
+      @config ||= Gloat::Config.new
     end
   end
 end
