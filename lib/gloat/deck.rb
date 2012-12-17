@@ -1,75 +1,46 @@
 module Gloat
   class Deck
 
+    HEADER_REGEX = /^!SLIDE\s*/
+    SLIDE_REGEX = /(?m)#{HEADER_REGEX}.*?(?=#{HEADER_REGEX}|\Z)/
+
     def initialize config, deck_config
       @config = config
       @deck_config = deck_config
     end
 
     def slides
-      @slides ||= begin
-        number = 0
-        header_regex = /^!SLIDE\s*/
-        slide_regex = /(?m)#{header_regex}.*?(?=#{header_regex}|\Z)/
-
-        raw_slides.inject([]) do |slides, file|
-          File.read(file).scan(slide_regex).each do |s|
-            if m = s.match(/^!SLIDE\s?(?<options>[^\n]*)\n\n(?<raw>[^\n].*)$/m)
-              number += 1
-              extension = Pathname.new(file).extname.gsub(/^\./, '')
-              slides << Gloat::Slide.new(@config, number, m['options'], m['raw'], extension)
-            end
-          end
-          slides
-        end
+      @deck_config.slide_files.inject([]) do |slides, file|
+        slides + parse_slide_file(file)
       end
     end
 
     def for_json
       {
         total: slides.count,
-        slides: slides.map { |s| s.for_json }
-      }
-    end
-
-    def for_json_static
-      {
-        total: slides.count,
-        slides: slides.map { |s| s.for_json_static }
+        slides: slides.each_with_index.map { |s, i| x = s.for_json ; x['number'] = i+1 ; x }
       }
     end
 
     def theme
-      @theme ||= deck.fetch('theme', 'default')
+      deck.theme
     end
 
     def name
-      @name ||= deck.fetch('name')
+      deck.name
     end
 
     private
-
-    def raw_slides
-      raise 'No slides configured!' unless deck
-
-      deck.slides.inject([]) do |slides, entry|
-        if File.directory?(entry)
-          entries = Dir[File.join(@config.slides_path, entry, '*')]
-        else
-          entries = [ File.join(@config.slides_path, entry) ]
-        end
-        slides += extract_valid_slides(entries)
-      end
-    end
 
     def deck
       @deck ||= @deck_config.deck
     end
 
-    def extract_valid_slides entries
-      entries.inject([]) do |slides, entry|
-        slides << entry if Gloat::Slide.file_valid?(entry)
-        slides
+    protected
+
+    def parse_slide_file file
+      File.read(file).scan(SLIDE_REGEX).map do |content|
+        Gloat::Slide.new(@config, content, Pathname.new(file).extname.gsub(/^\./, ''))
       end
     end
   end

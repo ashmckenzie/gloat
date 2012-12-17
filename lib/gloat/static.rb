@@ -50,7 +50,7 @@ module Gloat
     end
 
     def deck
-      @deck ||= Gloat::Page::Deck.new(config, deck_config, 'static')
+      @deck ||= Gloat::Page::StaticDeck.new(config, deck_config)
     end
 
     def root_dir

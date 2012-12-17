@@ -9,7 +9,7 @@ module Gloat
       end
 
       def content
-        Tilt::ERBTemplate.new(File.join(view_path, "#{@action}.erb")).render(self, @data)
+        Tilt::ERBTemplate.new(File.join(views_path, "#{@action}.erb")).render(self, @data)
       end
     end
   end

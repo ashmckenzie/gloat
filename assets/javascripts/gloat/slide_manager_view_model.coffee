@@ -19,7 +19,7 @@ window.Gloat.SlideManagerViewModel = class SlideManagerViewModel
 
       ((currentSlide / @totalSlideNumber()) * 100).toFixed()
 
-      @processSlides Gloat.bootstrap.slides
+      @processDeck Gloat.bootstrap.deck
 
   gotoNextSlide: ->
     if @currentSlide().number() < @totalSlideNumber()
@@ -43,8 +43,8 @@ window.Gloat.SlideManagerViewModel = class SlideManagerViewModel
   slideListClick: (slide) ->
     location.hash = slide.number()
 
-  processSlides: (slides) =>
-    _.each slides.slides, (slide) =>
+  processDeck: (deck) =>
+    _.each deck.slides, (slide) =>
       self.slides.push(new Gloat.SlideViewModel(slide))
 
   toggleSlideList: (force) ->

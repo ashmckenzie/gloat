@@ -3,18 +3,17 @@ module Gloat
 
     VALID_EXTENSIONS = %w{ slide textile md haml erb html }
 
-    attr_reader :number, :template_name
+    attr_reader :template_name
 
-    def initialize config, number, raw_options, raw_markup, extension, template_name='default'
+    def initialize config, content, extension, template_name='default'
       @config = config
-      @number = number
-      @raw_options = raw_options
-      @raw_markup = raw_markup
       @extension = extension
       @template_name = template_name
+
+      parse_slide(content)
     end
 
-    def self.file_valid? filename
+    def self.slide_file_valid? filename
       file = Pathname.new(filename)
       file.exist? && VALID_EXTENSIONS.include?(file.extname.gsub(/^\./, ''))
     end
@@ -27,7 +26,7 @@ module Gloat
       end
     end
 
-    def markup &blk
+    def markup
       @markup ||= begin
 
         if @extension == 'slide' || language != @config.default_language
@@ -51,17 +50,8 @@ module Gloat
 
     def for_json
       {
-        number: number,
         css_classes: options.classes,
         html: render.to_s
-      }
-    end
-
-    def for_json_static
-      {
-        number: number,
-        css_classes: options.classes,
-        html: rewrite_markup(render).to_s
       }
     end
 
@@ -73,23 +63,14 @@ module Gloat
 
     private
 
-    def rewrite_markup markup
-
-      # images
-      #
-      markup.css('img').each do |x|
-        next if !x.attribute('src') || x.attribute('src').value.match(/^http/)
-        x.attribute('src').value = "." + x.attribute('src').value
+    def parse_slide content
+      if match = content.match(/^!SLIDE\s?(?<raw_options>[^\n]*)\n\n(?<raw_markup>[^\n].*)$/m)
+        @raw_options = match['raw_options']
+        @raw_markup = match['raw_markup']
+        self
+      else
+        raise "Unable to create Gloat::Slide from '#{content}'"
       end
-
-      # links
-      #
-      markup.css('a').each do |x|
-        next if !x.attribute('href') || x.attribute('href').value.match(/^http/)
-        x.attribute('href').value = "." + x.attribute('href').value
-      end
-
-      markup.to_s
     end
 
     def language
