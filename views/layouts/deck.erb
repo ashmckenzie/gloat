@@ -11,26 +11,31 @@
     <script src="/assets/application.js"></script>
   </head>
   <body>
-    <header>
-      <%= header %>
-    </header>
 
-    <section id="slide-list" data-bind="visible: slideListVisible">
-      <div id="slide-list-inner" data-bind="template: { name: 'slide-list-template', foreach: slides() }"></div>
+    <section id="content">
+
+      <header>
+        <%= header %>
+      </header>
+
+      <section id="slide-list" data-bind="visible: slideListVisible">
+        <div id="slide-list-inner" data-bind="template: { name: 'slide-list-template', foreach: slides() }"></div>
+      </section>
+
+      <section id="slide">
+        <div data-bind="template: { name: 'slide-template', data: currentSlide(), afterRender: parseAnyCodeFragments }"></div>
+
+        <div id="slide-position" data-bind="fadeOut: currentSlide()">
+          <span data-bind="text: currentSlide().number()"></span> / <span data-bind="text: totalSlideNumber()"></span>
+          <span>(<span data-bind="text: percentComplete()"></span>%)</span>
+        </div>
+      </section>
+
+      <footer>
+        <%= footer %>
+      </footer>
+
     </section>
-
-    <section id="slide">
-      <div data-bind="template: { name: 'slide-template', data: currentSlide(), afterRender: parseAnyCodeFragments }"></div>
-
-      <div id="slide-position" data-bind="fadeOut: currentSlide()">
-        <span data-bind="text: currentSlide().number()"></span> / <span data-bind="text: totalSlideNumber()"></span>
-        <span>(<span data-bind="text: percentComplete()"></span>%)</span>
-      </div>
-    </section>
-
-    <footer>
-      <%= footer %>
-    </footer>
 
     <div id="help" class="reveal-modal">
        <h1>Help</h1>

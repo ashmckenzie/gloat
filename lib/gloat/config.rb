@@ -33,6 +33,10 @@ module Gloat
       @layouts_path ||= File.join(views_path, 'layouts')
     end
 
+    def themes_path
+      @themes_path ||= File.join(root_path, 'assets', 'themes')
+    end
+
     def slides_path
       @slides_path ||= File.join(root_path, 'slides')
     end

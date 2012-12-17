@@ -11,6 +11,10 @@ module Gloat
         @deck ||= Gloat::Deck.new(config, @deck_config)
       end
 
+      def header
+        Tilt::ERBTemplate.new(header_file).render(self) if header_file
+      end
+
       def theme
         deck.theme
       end
@@ -25,6 +29,20 @@ module Gloat
 
       def slide_template
         @slide_template ||= File.read(File.join(templates_path, 'slide_template.erb'))
+      end
+
+      private
+
+      def header_file
+        file = File.join(config.themes_path, deck.theme, '_header.html.erb')
+        if File.exist?(file)
+          file
+        else
+          nil
+        end
+      end
+
+      def footer_file
       end
     end
   end
