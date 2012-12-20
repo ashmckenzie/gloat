@@ -16,9 +16,15 @@ module Gloat
     end
 
     def for_json
+      slides_with_numbers = slides.each_with_index.map do |s, i|
+        slide_as_json = s.for_json
+        slide_as_json['number'] = i + 1
+        slide_as_json
+      end
+
       {
         total: slides.count,
-        slides: slides.each_with_index.map { |s, i| x = s.for_json ; x['number'] = i+1 ; x }
+        slides: slides_with_numbers
       }
     end
 

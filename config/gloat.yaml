@@ -6,7 +6,7 @@ date: 2012-11-13
 decks:
   -
     slug: operations-at-hooroo
-    name: Operationst at Hooroo
+    name: Operations at Hooroo
     theme: hooroo
     slides:
       - operations_at_hooroo.md

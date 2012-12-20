@@ -35,7 +35,7 @@
 * Shaz: No worries mate, see ya tomorrow for the shearing competition. Hooroo.
 * Bruce: Hooroo!
 
-!SLIDE classes="small-bullets-x2"
+!SLIDE classes="small-bullets-x4"
 
 # The company #
 
@@ -158,7 +158,7 @@
 
 ## Using RSpec ##
 
-!SLIDE
+!SLIDE classes="small-bullets"
 
 # Infrastructure Testing #
 
