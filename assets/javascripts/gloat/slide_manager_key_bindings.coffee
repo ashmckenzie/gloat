@@ -12,7 +12,7 @@ window.Gloat.SlideManagerKeyBindings = class SlideManagerKeyBindings
       @slideManagerViewModel.toggleSlideList(false)
 
     Mousetrap.bind 'd', ->
-      location.href = '/decks'
+      location.href = @slideManagerViewModel.decksIndexPath
 
     Mousetrap.bind 'l', ->
       @slideManagerViewModel.toggleSlideList()

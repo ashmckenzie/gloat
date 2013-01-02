@@ -9,7 +9,7 @@ module Gloat
       end
 
       def content
-        Tilt::ERBTemplate.new(File.join(views_path, "#{@action}.erb")).render(self, @data)
+        Nokogiri::HTML.fragment(Tilt::ERBTemplate.new(File.join(views_path, "#{@action}.erb")).render(self, @data))
       end
     end
   end

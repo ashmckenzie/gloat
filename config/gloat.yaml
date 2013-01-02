@@ -10,3 +10,8 @@ decks:
     theme: hooroo
     slides:
       - operations_at_hooroo.md
+  -
+    slug: operations-at-hooroo-ng
+    name: Operations at Hooroo NG
+    slides:
+      - operations_at_hooroo_ng.md

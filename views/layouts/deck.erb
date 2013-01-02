@@ -2,7 +2,7 @@
 <html lang="en-us">
   <head>
     <title><%= title %></title>
-    <meta charset="utf-8"
+    <meta charset="utf-8" />
     <meta name="author" content="<%= author %>" />
     <meta name="description" content="<%= description %>" />
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
@@ -52,6 +52,7 @@
 
     <script type="text/javascript">
       Gloat.bootstrap = {
+        decksIndexPath: "<%= decks_index_path %>",
         deck: <%= deck.for_json.to_json.html_safe %>
       };
     </script>

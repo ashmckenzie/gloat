@@ -32,8 +32,8 @@
 <br/>
 
 * Bruce: Crikes it's getting late, mate, I should probably get back.
-* Shaz: No worries mate, see ya tomorrow for the shearing competition. Hooroo NG.
-* Bruce: Hooroo NG!
+* Shaz: No worries mate, see ya tomorrow for the shearing competition. Hooroo.
+* Bruce: Hooroo!
 
 !SLIDE classes="small-bullets-x2"
 

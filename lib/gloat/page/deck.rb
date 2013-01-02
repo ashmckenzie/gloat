@@ -31,10 +31,14 @@ module Gloat
         @slide_template ||= File.read(File.join(templates_path, 'slide_template.erb'))
       end
 
+      def decks_index_path
+        '/decks'
+      end
+
       private
 
       def header_file
-        file = File.join(config.themes_path, deck.theme, '_header.html.erb')
+        file = File.join(config.themes_path, theme, '_header.html.erb')
         if File.exist?(file)
           file
         else

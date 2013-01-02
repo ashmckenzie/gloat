@@ -10,7 +10,10 @@ _.templateSettings = {
 
 jQuery ->
 
-  window.slideManagerViewModel = new Gloat.SlideManagerViewModel()
+  window.slideManagerViewModel = new Gloat.SlideManagerViewModel(
+    Gloat.bootstrap.decksIndexPath,
+    Gloat.bootstrap.deck
+  )
 
   new Gloat.SlideManagerRouting(window.slideManagerViewModel)
 

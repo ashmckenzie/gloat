@@ -29,7 +29,7 @@ module Gloat
     end
 
     def theme
-      deck.theme
+      deck.theme || 'default'
     end
 
     def name

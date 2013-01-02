@@ -8,7 +8,7 @@ module Gloat
       #
       _markup.css('img').each do |x|
         next if !x.attribute('src') || x.attribute('src').value.match(/^http/)
-        x.attribute('src').value = "." + x.attribute('src').value
+        x.attribute('src').value = "../.." + x.attribute('src').value
       end
 
       # links

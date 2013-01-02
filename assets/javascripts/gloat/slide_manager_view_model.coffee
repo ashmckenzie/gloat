@@ -1,6 +1,6 @@
 window.Gloat.SlideManagerViewModel = class SlideManagerViewModel
 
-  constructor: ->
+  constructor: (@decksIndexPath, @deck) ->
     window.self = @
 
     @slides = ko.observableArray()
@@ -19,7 +19,7 @@ window.Gloat.SlideManagerViewModel = class SlideManagerViewModel
 
       ((currentSlide / @totalSlideNumber()) * 100).toFixed()
 
-      @processDeck Gloat.bootstrap.deck
+      @processDeck @deck
 
   gotoNextSlide: ->
     if @currentSlide().number() < @totalSlideNumber()
