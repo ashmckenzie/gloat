@@ -10,14 +10,14 @@ _.templateSettings = {
 
 jQuery ->
 
-  window.slideManagerViewModel = new Gloat.SlideManagerViewModel(
+  window.deckViewModel = new Gloat.DeckViewModel(
     Gloat.bootstrap.decksIndexPath,
     Gloat.bootstrap.deck
   )
 
-  new Gloat.SlideManagerRouting(window.slideManagerViewModel)
+  new Gloat.DeckRouting(window.deckViewModel)
 
   _.delay =>
-    new Gloat.SlideManagerKeyBindings(window.slideManagerViewModel)
-    ko.applyBindings(window.slideManagerViewModel)
+    new Gloat.DeckKeyBindings(window.deckViewModel)
+    ko.applyBindings(window.deckViewModel)
   , 0

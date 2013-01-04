@@ -1,38 +1,38 @@
-window.Gloat.SlideManagerKeyBindings = class SlideManagerKeyBindings
+window.Gloat.DeckKeyBindings = class DeckKeyBindings
 
   slideChanged: false
 
-  constructor: (@slideManagerViewModel) ->
+  constructor: (@deckViewModel) ->
     window.self = @
 
     Mousetrap.bind '?', ->
       $('#help').reveal();
 
     Mousetrap.bind 'escape', ->
-      @slideManagerViewModel.toggleSlideList(false)
+      @deckViewModel.toggleSlideList(false)
 
     Mousetrap.bind 'd', ->
-      location.href = @slideManagerViewModel.decksIndexPath
+      location.href = @deckViewModel.decksIndexPath
 
     Mousetrap.bind 'l', ->
-      @slideManagerViewModel.toggleSlideList()
+      @deckViewModel.toggleSlideList()
 
     Mousetrap.bind 'g s', ->
-      location.hash = 1
+      location.hash = @deckViewModel.firstSlideNumber()
 
     Mousetrap.bind 'g e', ->
-      location.hash = @slideManagerViewModel.totalSlideNumber()
+      location.hash = @deckViewModel.totalSlideNumber()
 
     Mousetrap.bind 'left', ->
-      @slideManagerViewModel.gotoPreviousSlide()
+      @deckViewModel.gotoPreviousSlide()
 
     Mousetrap.bind [ 'right', 'space' ], ->
-      @slideManagerViewModel.gotoNextSlide()
+      @deckViewModel.gotoNextSlide()
 
     Mousetrap.stopCallback = =>
       @slideChanged == true
 
-    for number in [ 1..slideManagerViewModel.totalSlideNumber() ]
+    for number in [ 1..deckViewModel.totalSlideNumber() ]
       do (number) ->
         numberAsString = (number).toString().split('').join(' ')
         Mousetrap.bind(numberAsString + ' enter', ->

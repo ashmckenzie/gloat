@@ -15,6 +15,9 @@ module Gloat
       end
     end
 
+    def pre_show_slide
+    end
+
     def for_json
       slides_with_numbers = slides.each_with_index.map do |s, i|
         slide_as_json = s.for_json
@@ -23,7 +26,7 @@ module Gloat
       end
 
       {
-        total: slides.count,
+        firstSlideNumber: 1,
         slides: slides_with_numbers
       }
     end

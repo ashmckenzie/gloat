@@ -21,7 +21,7 @@ module Gloat
     def options
       @options ||= begin
         Hashie::Mash.new(
-          @raw_options.scan(/([^=]+)="([^"]+)"/).inject({}) { |hash, item| hash[item[0]] = item[1]; hash }
+          @raw_options.scan(/\s*([^=]+)="([^"]+)"/).inject({}) { |hash, item| hash[item[0]] = item[1]; hash }
         )
       end
     end
@@ -49,10 +49,27 @@ module Gloat
     end
 
     def for_json
-      {
-        css_classes: options.classes,
+      json = {
+        options: options,
+        preShow: pre_show_slide?,
         html: render.to_s
       }
+
+      if no_theme?
+        json[:theme] = 'blank'
+      end
+
+      ap json
+
+      json
+    end
+
+    def pre_show_slide?
+      options.pre_show == 'true'
+    end
+
+    def no_theme?
+      options.include?('theme')
     end
 
     def render

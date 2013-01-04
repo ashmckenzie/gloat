@@ -1,12 +1,15 @@
-window.Gloat.SlideManagerViewModel = class SlideManagerViewModel
+window.Gloat.DeckViewModel = class DeckViewModel
 
   constructor: (@decksIndexPath, @deck) ->
     window.self = @
 
     @slides = ko.observableArray()
+    @currentTheme = ko.observable()
     @currentSlide = ko.observable()
     @previousSlide = ko.observable()
     @slideListVisible = ko.observable(false)
+
+    @setCurrentTheme()
 
     @totalSlideNumber = ko.computed =>
       @slides().length
@@ -20,6 +23,13 @@ window.Gloat.SlideManagerViewModel = class SlideManagerViewModel
       ((currentSlide / @totalSlideNumber()) * 100).toFixed()
 
       @processDeck @deck
+
+  setCurrentTheme: ->
+    # theme-stylesheet
+    @currentTheme("/assets/themes/hooroo/style.css")
+
+  firstSlideNumber: ->
+    @deck.firstSlideNumber
 
   gotoNextSlide: ->
     if @currentSlide().number() < @totalSlideNumber()
