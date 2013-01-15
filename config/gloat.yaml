@@ -1,17 +1,16 @@
 ---
-name: Gloat presentation
-description: Gloat - the best darn presentation tool
-author: Ash McKenzie
-date: 2012-11-13
 decks:
   -
-    slug: operations-at-hooroo
     name: Operations at Hooroo
+    description: How we do operations at Hooroo
+    author: Ash McKenzie
+    slug: operations-at-hooroo
     theme: hooroo
     slides:
       - operations_at_hooroo.md
   -
-    slug: operations-at-hooroo-ng
     name: Operations at Hooroo NG
+    author: Ash McKenzie
+    slug: operations-at-hooroo-ng
     slides:
       - operations_at_hooroo_ng.md

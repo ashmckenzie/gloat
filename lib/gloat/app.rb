@@ -26,7 +26,13 @@ module Gloat
     end
 
     get '/decks' do
-      Gloat::Page::Basic.new(config, 'decks', { decks: decks }).render
+      data = {
+        title: 'Available decks',
+        description: 'Available decks to choose from',
+        decks: decks
+      }
+
+      Gloat::Page::Basic.new(config, 'decks', data).render
     end
 
     get '/decks/:deck_slug' do |deck_slug|

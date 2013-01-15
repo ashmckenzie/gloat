@@ -4,6 +4,3 @@ window.Gloat.SlideViewModel = class SlideViewModel
     @number = ko.observable(@slide.number)
     @cssClasses = ko.observable(@slide.options.classes)
     @html = ko.observable(@slide.html)
-
-  theme: ->
-    @slide.options?.theme ? true

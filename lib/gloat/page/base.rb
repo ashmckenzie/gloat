@@ -21,18 +21,6 @@ module Gloat
       def footer
       end
 
-      def title
-        config.name
-      end
-
-      def description
-        config.description
-      end
-
-      def author
-        config.author
-      end
-
       private
 
       def views_path

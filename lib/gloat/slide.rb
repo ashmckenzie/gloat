@@ -49,22 +49,10 @@ module Gloat
     end
 
     def for_json
-      json = {
+      {
         options: options,
         html: render.to_s
       }
-
-      if no_theme?
-        json[:theme] = 'blank'
-      end
-
-      ap json
-
-      json
-    end
-
-    def no_theme?
-      options.include?('theme')
     end
 
     def render

@@ -36,6 +36,14 @@ module Gloat
       deck.name
     end
 
+    def description
+      deck.description
+    end
+
+    def author
+      deck.author
+    end
+
     private
 
     def deck

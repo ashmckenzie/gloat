@@ -23,6 +23,14 @@ module Gloat
         deck.name
       end
 
+      def description
+        deck.description
+      end
+
+      def author
+        deck.author
+      end
+
       def slide_list_template
         @slide_list_template ||= File.read(File.join(templates_path, 'slide_list_template.erb'))
       end
