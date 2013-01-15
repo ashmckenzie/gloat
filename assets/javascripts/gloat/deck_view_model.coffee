@@ -9,8 +9,6 @@ window.Gloat.DeckViewModel = class DeckViewModel
     @previousSlide = ko.observable()
     @slideListVisible = ko.observable(false)
 
-    @setCurrentTheme()
-
     @totalSlideNumber = ko.computed =>
       @slides().length
 
@@ -22,11 +20,7 @@ window.Gloat.DeckViewModel = class DeckViewModel
 
       ((currentSlide / @totalSlideNumber()) * 100).toFixed()
 
-      @processDeck @deck
-
-  setCurrentTheme: ->
-    # theme-stylesheet
-    @currentTheme("/assets/themes/hooroo/style.css")
+    @processDeck @deck
 
   firstSlideNumber: ->
     @deck.firstSlideNumber

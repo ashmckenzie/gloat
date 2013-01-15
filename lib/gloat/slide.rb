@@ -51,7 +51,6 @@ module Gloat
     def for_json
       json = {
         options: options,
-        preShow: pre_show_slide?,
         html: render.to_s
       }
 
@@ -62,10 +61,6 @@ module Gloat
       ap json
 
       json
-    end
-
-    def pre_show_slide?
-      options.pre_show == 'true'
     end
 
     def no_theme?

@@ -1,15 +1,3 @@
-!SLIDE pre_show="true" theme="false"
-
-PRE SHOW
-
-* ![engine_yard](/images/engine_yard.png)
-* ![ruby](/images/ruby.png)
-* ![rails](/images/rails.png)
-* ![nginx](/images/nginx.png)
-* ![unicorn](/images/unicorn.png)
-* ![postgres](/images/postgres.png)
-* ![redis](/images/redis.png)
-
 !SLIDE
 
 # Operations at Hooroo #
