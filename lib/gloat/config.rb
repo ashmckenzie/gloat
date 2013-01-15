@@ -10,7 +10,7 @@ module Gloat
     end
 
     def default_config_file
-      File.join(root_path, 'config', 'gloat.yaml')
+      File.join(root_path, 'gloat.yaml')
     end
 
     def default_language
