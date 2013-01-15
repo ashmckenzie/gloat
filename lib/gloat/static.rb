@@ -30,6 +30,7 @@ module Gloat
 
       File.open(File.join(static_path, 'index.html'), 'w') do |file|
         data = {
+          title: 'Available decks',
           decks: config.decks,
           decks_static_path: decks_static_path
         }

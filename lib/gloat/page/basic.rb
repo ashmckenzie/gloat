@@ -2,7 +2,7 @@ module Gloat
   module Page
     class Basic < Base
 
-      attr_accessor :title, :author, :description
+      attr_reader :title, :author, :description
 
       def initialize config, action, data, layout_name='basic'
         super(config, layout_name)
