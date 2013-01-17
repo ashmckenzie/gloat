@@ -1,9 +1,11 @@
 require 'rubygems'
 require 'bundler'
+Bundler.setup
+
 require 'yaml'
 require 'json'
-
-Bundler.setup
+require 'hashie'
+require 'nokogiri'
 
 lib_dir = File.expand_path(File.dirname(__FILE__))
 
