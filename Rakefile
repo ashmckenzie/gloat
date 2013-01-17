@@ -1,4 +1,4 @@
-require File.expand_path(File.join('..', 'config', 'initialisers', 'init'), __FILE__)
+require File.expand_path(File.join('..', 'lib', 'gloat'), __FILE__)
 
 desc 'Create a static version of your presentation'
 task :static do
