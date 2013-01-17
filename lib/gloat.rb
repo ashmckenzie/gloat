@@ -20,3 +20,11 @@ dirs.each do |dir|
   path = File.expand_path(File.join(lib_dir, dir))
   Dir["#{path}/*.rb"].each { |file| require file }
 end
+
+module Gloat
+
+  def rackup
+    puts 'here'
+  end
+
+end
