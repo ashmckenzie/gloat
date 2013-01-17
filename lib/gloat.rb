@@ -6,6 +6,7 @@ require 'yaml'
 require 'json'
 require 'hashie'
 require 'nokogiri'
+require 'tilt'
 
 lib_dir = File.expand_path(File.dirname(__FILE__))
 
