@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+ENV['BUNDLE_GEMFILE'] = '/Users/ash/.rbenv/versions/1.9.3-p194-falcon/lib/ruby/gems/1.9.1/gems/gloat-0.0.1/Gemfile'
+
 require 'gloat'
 
 Gloat.rackup

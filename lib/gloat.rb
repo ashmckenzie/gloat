@@ -23,8 +23,7 @@ end
 
 module Gloat
 
-  def rackup
+  def self.rackup
     puts 'here'
   end
-
 end
