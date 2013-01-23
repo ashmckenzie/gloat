@@ -7,6 +7,10 @@ require 'json'
 require 'hashie'
 require 'nokogiri'
 require 'tilt'
+require 'rdiscount'
+require 'haml'
+require 'sass'
+require 'coffee_script'
 
 lib_dir = File.expand_path(File.dirname(__FILE__))
 
@@ -22,8 +26,4 @@ dirs.each do |dir|
 end
 
 module Gloat
-
-  def self.rackup
-    puts 'here'
-  end
 end

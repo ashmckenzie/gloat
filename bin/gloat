@@ -3,5 +3,11 @@
 ENV['BUNDLE_GEMFILE'] = '/Users/ash/.rbenv/versions/1.9.3-p194-falcon/lib/ruby/gems/1.9.1/gems/gloat-0.0.1/Gemfile'
 
 require 'gloat'
+require 'sinatra/base'
+require 'sinatra/reloader'
+require 'sprockets'
 
-Gloat.rackup
+require File.expand_path(File.join('..', '..', 'lib', 'gloat'), __FILE__)
+require File.expand_path(File.join('..', '..', 'app'), __FILE__)
+
+Gloat::App.run!

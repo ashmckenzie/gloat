@@ -3,10 +3,10 @@ module Gloat
     class SprocketsMiddleware
       attr_reader :app, :prefix, :sprockets
 
-      def initialize(app, prefix)
+      def initialize(app, prefix, root='.')
         @app = app
         @prefix = prefix
-        @sprockets = Sprockets::Environment.new
+        @sprockets = Sprockets::Environment.new(root)
 
         yield sprockets if block_given?
       end

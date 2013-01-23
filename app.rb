@@ -9,7 +9,11 @@ module Gloat
       end
     end
 
-    use Gloat::Support::SprocketsMiddleware, %r{/assets} do |env|
+    # Yuck.
+    #
+    config = Gloat::Config.new
+
+    use Gloat::Support::SprocketsMiddleware, %r{/assets}, config.root_path do |env|
       env.append_path "assets/stylesheets"
       env.append_path "assets/javascripts"
       env.append_path "assets/images"

@@ -8,7 +8,7 @@ module Gloat
     end
 
     def default_config_file
-      File.join(root_path, 'gloat.yaml')
+      File.join(current_path, 'gloat.yaml')
     end
 
     def default_language
@@ -32,18 +32,24 @@ module Gloat
     end
 
     def themes_path
-      @themes_path ||= File.join(root_path, 'assets', 'themes')
+      @themes_path ||= File.join(assets_path, 'themes')
+    end
+
+    def assets_path
+      @assets_path ||= File.join(root_path, 'assets')
     end
 
     def slides_path
-      @slides_path ||= File.join(root_path, 'slides')
+      @slides_path ||= File.join(current_path, 'slides')
     end
 
     def method_missing symbol
       settings.send(symbol)
     end
 
-    private
+    def current_path
+      Dir.pwd
+    end
 
     def root_path
       File.expand_path(File.join('..', '..', '..'), __FILE__)
