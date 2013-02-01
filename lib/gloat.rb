@@ -1,7 +1,3 @@
-require 'rubygems'
-require 'bundler'
-Bundler.setup
-
 require 'yaml'
 require 'json'
 require 'hashie'
