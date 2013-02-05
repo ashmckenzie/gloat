@@ -13,8 +13,8 @@ module Gloat
       end
     end
 
-    use Gloat::Support::SprocketsMiddleware, %r{/assets}, config.root_path do |env|
-      [ '', Dir.pwd ].each do |prefix|
+    use Gloat::Support::SprocketsMiddleware, %r{/assets} do |env|
+      [ config.root_path, Dir.pwd ].each do |prefix|
         env.append_path File.join(prefix, 'assets', 'stylesheets')
         env.append_path File.join(prefix, 'assets', 'javascripts')
         env.append_path File.join(prefix, 'assets', 'images')
