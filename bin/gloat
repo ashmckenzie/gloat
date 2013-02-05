@@ -9,6 +9,8 @@ require 'sinatra/base'
 require 'sinatra/reloader'
 require 'sprockets'
 
+require 'subby'
+
 require File.join('lib', 'gloat')
 require File.join('app')
 

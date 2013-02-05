@@ -2,23 +2,25 @@ module Gloat
 
   class App < Sinatra::Base
 
-    configure :development do
-      register Sinatra::Reloader
-      Dir[File.join(File.expand_path(File.join('..', '..'), __FILE__), '**', '*.rb')].each do |file|
-        also_reload file
-      end
-    end
-
     # Yuck.
     #
     config = Gloat::Config.new
 
+    configure :development do
+      register Sinatra::Reloader
+      Dir[File.join(File.expand_path(File.join('..'), __FILE__), '**', '*.rb')].each do |file|
+        also_reload file
+      end
+    end
+
     use Gloat::Support::SprocketsMiddleware, %r{/assets}, config.root_path do |env|
-      env.append_path "assets/stylesheets"
-      env.append_path "assets/javascripts"
-      env.append_path "assets/images"
-      env.append_path "assets/fonts"
-      env.append_path "assets"
+      [ '', Dir.pwd ].each do |prefix|
+        env.append_path File.join(prefix, 'assets', 'stylesheets')
+        env.append_path File.join(prefix, 'assets', 'javascripts')
+        env.append_path File.join(prefix, 'assets', 'images')
+        env.append_path File.join(prefix, 'assets', 'fonts')
+        env.append_path File.join(prefix, 'assets')
+      end
     end
 
     get '/' do
