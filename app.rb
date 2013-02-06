@@ -17,13 +17,13 @@ module Gloat
       env.append_path File.join(config.root_path, 'assets', 'stylesheets')
       env.append_path File.join(config.root_path, 'assets', 'javascripts')
       env.append_path File.join(config.root_path, 'assets', 'images')
-      env.append_path File.join(config.root_path, 'config.root_path, assets', 'fonts')
+      env.append_path File.join(config.root_path, 'assets', 'fonts')
       env.append_path File.join(config.root_path, 'assets', 'themes')
       env.append_path File.join(config.root_path, 'assets')
 
       config.decks.each do |deck|
-        theme_path = File.join(Dir.pwd, 'assets', 'themes', deck.theme)
-        env.append_path theme_path if Dir.exist?(theme_path)
+        env.append_path File.join(Dir.pwd, 'assets', 'themes')
+        env.append_path File.join(Dir.pwd, 'assets')
       end
     end
 
