@@ -1,3 +1,5 @@
+require 'forwardable'
+
 module Gloat
   module Page
     class Deck < Base
