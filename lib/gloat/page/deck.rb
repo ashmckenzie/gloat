@@ -70,6 +70,7 @@ module Gloat
         ].each do |file|
           return file if File.exist?(file)
         end
+        false
       end
     end
   end
