@@ -3,7 +3,6 @@
 $:.unshift File.expand_path(File.join(File.dirname(__FILE__), '..'))
 
 require 'rubygems'
-# require 'gloat'
 
 require 'sinatra/base'
 require 'sinatra/reloader'
@@ -14,4 +13,4 @@ require 'subby'
 require File.join('lib', 'gloat')
 require File.join('app')
 
-Gloat::App.run!
+Gloat::CLI.start

@@ -5,19 +5,27 @@ module Gloat
       begin
         subby = Subby.setup do
 
-          command :receive do
-            description 'Receive bumps'
-            parameter :server, 'Server to connect to', format: /^http/, required: true
+          command :serve do
+            description 'Serve presentation'
+            parameter :port, 'Port to listen on', format: /\d+/
           end
 
-          # command :send do
-          #   description 'Send bumps'
-          #   parameter :server, 'Server to connect to', format: /^http/, required: true
-          #   parameter :key, 'Key to use', format: /^\w+-\w+-\w+-\w+-\w+$/, required: true
-          # end
+          command :static do
+            description 'Create a static version of the presentation'
+            # FIXME: add :type support
+            parameter :directory, 'Directory in which to create presentation', :type => :directory
+          end
         end
       rescue => e
-        p e
+        raise
+      end
+
+      case subby.command.name
+        when :serve
+          App.run!
+
+        when :static
+          Static.new.generate
       end
     end
   end

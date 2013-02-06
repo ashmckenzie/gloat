@@ -4,12 +4,6 @@ require 'sprockets'
 module Gloat
   class Static
 
-    attr_reader :config
-
-    def initialize config
-      @config = config
-    end
-
     def generate
 
       # Index
@@ -19,8 +13,7 @@ module Gloat
       # Decks
       #
       config.decks.each do |deck|
-        deck_config = Gloat::Config::Deck.new(config, deck.slug)
-        generate_deck deck_config
+        generate_deck deck
       end
     end
 
@@ -35,7 +28,7 @@ module Gloat
           decks_static_path: decks_static_path
         }
 
-        markup = Nokogiri::HTML(Gloat::Page::StaticBasic.new(config, 'static_decks', data).render)
+        markup = Nokogiri::HTML(Gloat::Page::StaticBasic.new('static_decks', data).render)
 
         # FIXME: Extract
         #
@@ -59,9 +52,11 @@ module Gloat
       end
     end
 
-    def generate_deck deck_config
-      deck = Gloat::Page::StaticDeck.new(config, deck_config)
-      deck_path = File.join(static_path, 'decks', deck_config.slug)
+    def generate_deck deck
+      deck = Gloat::Page::StaticDeck.new(deck)
+      deck_path = File.join(static_path, 'decks', deck.slug)
+
+      p deck_path
 
       FileUtils.mkdir_p(File.join(static_path, 'assets', 'themes', deck.theme))
       FileUtils.mkdir_p(deck_path)
@@ -98,7 +93,7 @@ module Gloat
 
       # Slide images
       #
-      FileUtils.cp_r File.join(root_path, 'slides', 'images'), File.join(static_path, 'images')
+      FileUtils.cp_r images_path, File.join(static_path, 'images') if Dir.exist?(images_path)
 
       # Theme files
       theme_files = Dir[File.join(assets_path, 'themes', deck.theme, '*')].reject { |x| x.match(/\.(erb|haml|sass)$/) }
@@ -112,8 +107,12 @@ module Gloat
 
     private
 
+    def config
+      Config.instance
+    end
+
     def root_path
-      @root_path ||= File.expand_path(File.join('..', '..', '..'), __FILE__)
+      Dir.pwd
     end
 
     def assets_path
@@ -128,8 +127,8 @@ module Gloat
       @decks_static_path ||= File.join(static_path, 'decks')
     end
 
-    def setup_sprockets
-
+    def images_path
+      @images_path ||= File.join(root_path, 'slides', 'images')
     end
 
     def env
