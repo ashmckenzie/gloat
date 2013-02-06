@@ -33,6 +33,18 @@ module Gloat
         @deck.for_json.to_json
       end
 
+      def application_js
+        '/assets/application.js'
+      end
+
+      def application_css
+        '/assets/application.css'
+      end
+
+      def theme_css
+        "/assets/themes/#{theme}/style.css"
+      end
+
       private
 
       def config

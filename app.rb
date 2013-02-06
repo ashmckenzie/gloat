@@ -14,12 +14,12 @@ module Gloat
     end
 
     use Gloat::Support::SprocketsMiddleware, %r{/assets} do |env|
-      env.append_path File.join('assets', 'stylesheets')
-      env.append_path File.join('assets', 'javascripts')
-      env.append_path File.join('assets', 'images')
-      env.append_path File.join('assets', 'fonts')
-      env.append_path File.join('assets', 'themes')
-      env.append_path File.join('assets')
+      env.append_path File.join(config.root_path, 'assets', 'stylesheets')
+      env.append_path File.join(config.root_path, 'assets', 'javascripts')
+      env.append_path File.join(config.root_path, 'assets', 'images')
+      env.append_path File.join(config.root_path, 'config.root_path, assets', 'fonts')
+      env.append_path File.join(config.root_path, 'assets', 'themes')
+      env.append_path File.join(config.root_path, 'assets')
 
       config.decks.each do |deck|
         theme_path = File.join(Dir.pwd, 'assets', 'themes', deck.theme)
