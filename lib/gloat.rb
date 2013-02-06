@@ -11,6 +11,7 @@ require 'coffee_script'
 lib_dir = File.expand_path(File.dirname(__FILE__))
 
 dirs = [
+  File.join('gloat', 'config'),
   File.join('gloat', 'support'),
   File.join('gloat', 'page'),
   File.join('gloat')

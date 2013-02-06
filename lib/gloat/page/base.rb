@@ -2,10 +2,9 @@ module Gloat
   module Page
     class Base
 
-      attr_reader :config, :layout_name
+      attr_reader :layout_name
 
-      def initialize config, layout_name
-        @config = config
+      def initialize layout_name
         @layout_name = layout_name
       end
 
@@ -20,6 +19,10 @@ module Gloat
       end
 
       private
+
+      def config
+        Config.instance
+      end
 
       def views_path
         @views_path ||= config.views_path

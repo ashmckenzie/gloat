@@ -19,7 +19,7 @@ module Gloat
       # Decks
       #
       config.decks.each do |deck|
-        deck_config = Gloat::DeckConfig.new(config, deck.slug)
+        deck_config = Gloat::Config::Deck.new(config, deck.slug)
         generate_deck deck_config
       end
     end
@@ -30,7 +30,7 @@ module Gloat
 
       File.open(File.join(static_path, 'index.html'), 'w') do |file|
         data = {
-          title: 'Available decks',
+          name: 'Available decks',
           decks: config.decks,
           decks_static_path: decks_static_path
         }

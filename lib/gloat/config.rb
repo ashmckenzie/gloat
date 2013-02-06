@@ -1,7 +1,9 @@
-module Gloat
-  class Config
+require 'singleton'
 
-    attr_reader :settings
+module Gloat
+  class Config  < SimpleDelegator
+
+    include Singleton
 
     def initialize config_file=default_config_file
       @settings = Hashie::Mash.new(YAML.load_file(config_file))
@@ -12,7 +14,7 @@ module Gloat
     end
 
     def default_language
-      @default_language ||= settings.fetch('default_language', 'textile')
+      @default_language ||= @settings.fetch('default_language', 'textile')
     end
 
     def slides_images_path
@@ -43,8 +45,16 @@ module Gloat
       @slides_path ||= File.join(current_path, 'slides')
     end
 
-    def method_missing symbol
-      settings.send(symbol)
+    def decks
+      @decks ||= begin
+        @settings.decks.map do |deck_attributes|
+          Deck.new(deck_attributes)
+        end
+      end
+    end
+
+    def deck_for_slug slug
+      decks.detect { |deck| deck.slug == slug }
     end
 
     def current_path

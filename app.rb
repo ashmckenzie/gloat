@@ -4,7 +4,7 @@ module Gloat
 
     # Yuck.
     #
-    config = Gloat::Config.new
+    config = Config.instance
 
     configure :development do
       register Sinatra::Reloader
@@ -14,12 +14,16 @@ module Gloat
     end
 
     use Gloat::Support::SprocketsMiddleware, %r{/assets} do |env|
-      [ config.root_path, Dir.pwd ].each do |prefix|
-        env.append_path File.join(prefix, 'assets', 'stylesheets')
-        env.append_path File.join(prefix, 'assets', 'javascripts')
-        env.append_path File.join(prefix, 'assets', 'images')
-        env.append_path File.join(prefix, 'assets', 'fonts')
-        env.append_path File.join(prefix, 'assets')
+      env.append_path File.join('assets', 'stylesheets')
+      env.append_path File.join('assets', 'javascripts')
+      env.append_path File.join('assets', 'images')
+      env.append_path File.join('assets', 'fonts')
+      env.append_path File.join('assets', 'themes')
+      env.append_path File.join('assets')
+
+      config.decks.each do |deck|
+        theme_path = File.join(Dir.pwd, 'assets', 'themes', deck.theme)
+        env.append_path theme_path if Dir.exist?(theme_path)
       end
     end
 
@@ -33,17 +37,17 @@ module Gloat
 
     get '/decks' do
       data = {
-        title: 'Available decks',
+        name: 'Available decks',
         description: 'Available decks to choose from',
         decks: decks
       }
 
-      Gloat::Page::Basic.new(config, 'decks', data).render
+      Gloat::Page::Basic.new('decks', data).render
     end
 
-    get '/decks/:deck_slug' do |deck_slug|
-      deck = Gloat::DeckConfig.new(config, deck_slug)
-      Gloat::Page::Deck.new(config, deck).render
+    get '/decks/:slug' do |slug|
+      deck = config.deck_for_slug slug
+      Gloat::Page::Deck.new(deck).render
     end
 
     get '/images/:image' do |image|
@@ -53,7 +57,7 @@ module Gloat
     private
 
     def config
-      @config ||= Gloat::Config.new
+      Config.instance
     end
 
     def decks

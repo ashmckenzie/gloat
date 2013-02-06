@@ -2,33 +2,17 @@ module Gloat
   module Page
     class Deck < Base
 
-      def initialize config, deck_config, layout_name='deck'
-        super(config, layout_name)
-        @deck_config = deck_config
-      end
+      extend Forwardable
 
-      def deck
-        @deck ||= Gloat::Deck.new(config, @deck_config)
+      def_delegators :@deck, :name, :description, :author, :slug, :theme
+
+      def initialize deck
+        super 'deck'
+        @deck = deck
       end
 
       def header
         Tilt::ERBTemplate.new(header_file).render(self) if header_file
-      end
-
-      def theme
-        deck.theme
-      end
-
-      def title
-        deck.name
-      end
-
-      def description
-        deck.description
-      end
-
-      def author
-        deck.author
       end
 
       def slide_list_template
@@ -43,7 +27,15 @@ module Gloat
         '/decks'
       end
 
+      def deck_as_json
+        @deck.for_json.to_json
+      end
+
       private
+
+      def config
+        Config.instance
+      end
 
       def header_file
         file = File.join(config.themes_path, theme, '_header.html.erb')

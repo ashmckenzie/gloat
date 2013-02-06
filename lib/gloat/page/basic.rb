@@ -2,14 +2,14 @@ module Gloat
   module Page
     class Basic < Base
 
-      attr_reader :title, :author, :description
+      attr_reader :name, :author, :description
 
-      def initialize config, action, data, layout_name='basic'
-        super(config, layout_name)
+      def initialize action, data
+        super 'basic'
         @action = action
         @data = data
 
-        @title = data.fetch(:title, '')
+        @name = data.fetch(:name, '')
         @description = data.fetch(:description, '')
         @author = data.fetch(:author, '')
       end

@@ -4,15 +4,28 @@ module Gloat
     HEADER_REGEX = /^!SLIDE\s*/
     SLIDE_REGEX = /(?m)#{HEADER_REGEX}.*?(?=#{HEADER_REGEX}|\Z)/
 
-    def initialize config, deck_config
-      @config = config
-      @deck_config = deck_config
+    def initialize attributes
+      @attributes = attributes
     end
 
-    def slides
-      @deck_config.slide_files.inject([]) do |slides, file|
-        slides + parse_slide_file(file)
-      end
+    def slug
+      @attributes.fetch('slug')
+    end
+
+    def name
+      @attributes.fetch('name', 'Name not defined')
+    end
+
+    def description
+      @attributes.fetch('description', 'Description not defined')
+    end
+
+    def author
+      @attributes.fetch('author', 'Author not defined')
+    end
+
+    def theme
+      @attributes.fetch('theme', 'default')
     end
 
     def for_json
@@ -28,33 +41,39 @@ module Gloat
       }
     end
 
-    def theme
-      deck.theme || 'default'
-    end
-
-    def name
-      deck.name
-    end
-
-    def description
-      deck.description
-    end
-
-    def author
-      deck.author
-    end
-
     private
 
-    def deck
-      @deck ||= @deck_config.deck
+    def config
+      Config.instance
     end
 
-    protected
+    def slides
+      slide_files.inject([]) do |slides, file|
+        slides + parse_slide_file(file)
+      end
+    end
+
+    def slide_files
+      @attributes.slides.inject([]) do |slides, entry|
+        if File.directory?(entry)
+          candidate_entries = Dir[File.join(config.slides_path, entry, '*')]
+        else
+          candidate_entries = [ File.join(config.slides_path, entry) ]
+        end
+        slides += extract_valid_slide_files(candidate_entries)
+      end
+    end
+
+    def extract_valid_slide_files candidate_entries
+      candidate_entries.inject([]) do |slides, entry|
+        slides << entry if Gloat::Slide.slide_file_valid?(entry)
+        slides
+      end
+    end
 
     def parse_slide_file file
       File.read(file).scan(SLIDE_REGEX).map do |content|
-        Gloat::Slide.new(@config, content, Pathname.new(file).extname.gsub(/^\./, ''))
+        Gloat::Slide.new(config, content, Pathname.new(file).extname.gsub(/^\./, ''))
       end
     end
   end
