@@ -17,6 +17,10 @@ module Gloat
         Tilt::ERBTemplate.new(header_file).render(self) if header_file
       end
 
+      def footer
+        Tilt::ERBTemplate.new(footer_file).render(self) if footer_file
+      end
+
       def slide_list_template
         @slide_list_template ||= File.read(File.join(templates_path, 'slide_list_template.erb'))
       end
@@ -52,15 +56,20 @@ module Gloat
       end
 
       def header_file
-        file = File.join(config.themes_path, theme, '_header.html.erb')
-        if File.exist?(file)
-          file
-        else
-          nil
-        end
+        local_or_theme_partial '_header.html.erb'
       end
 
       def footer_file
+        local_or_theme_partial '_footer.html.erb'
+      end
+
+      def local_or_theme_partial file
+        [
+          File.join(config.themes_path, theme, file),
+          File.join(config.local_themes_path, theme, file)
+        ].each do |file|
+          return file if File.exist?(file)
+        end
       end
     end
   end
