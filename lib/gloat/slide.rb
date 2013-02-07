@@ -5,8 +5,7 @@ module Gloat
 
     attr_reader :template_name
 
-    def initialize config, content, extension, template_name='default'
-      @config = config
+    def initialize content, extension, template_name='default'
       @extension = extension
       @template_name = template_name
 
@@ -29,7 +28,7 @@ module Gloat
     def markup
       @markup ||= begin
 
-        if @extension == 'slide' || language != @config.default_language
+        if @extension == 'slide' || language != config.default_language
           lang = language
         else
           lang = @extension
@@ -63,6 +62,10 @@ module Gloat
 
     private
 
+    def config
+      Config.instance
+    end
+
     def parse_slide content
       if match = content.match(/^!SLIDE\s?(?<raw_options>[^\n]*)\n\n(?<raw_markup>[^\n].*)$/m)
         @raw_options = match['raw_options']
@@ -74,7 +77,7 @@ module Gloat
     end
 
     def language
-      options.fetch('language', @config.default_language)
+      options.fetch('language', config.default_language)
     end
 
     def template

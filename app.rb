@@ -21,10 +21,8 @@ module Gloat
       env.append_path File.join(config.root_path, 'assets', 'themes')
       env.append_path File.join(config.root_path, 'assets')
 
-      config.decks.each do |deck|
-        env.append_path File.join(Dir.pwd, 'assets', 'themes')
-        env.append_path File.join(Dir.pwd, 'assets')
-      end
+      env.append_path File.join(Dir.pwd, 'assets', 'themes')
+      env.append_path File.join(Dir.pwd, 'assets')
     end
 
     get '/' do

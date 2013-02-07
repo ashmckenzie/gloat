@@ -3,7 +3,7 @@
 <ul>
 <% decks.each do |deck| %>
   <li>
-    <a href="<%= decks_static_path %>/<%= deck.slug %>/index.html" title="<%= deck.name %>"><%= deck.name %></a>
+    <a href="<%= static_decks_path %>/<%= deck.slug %>/index.html" title="<%= deck.name %>"><%= deck.name %></a>
   </li>
 <% end %>
 </ul>

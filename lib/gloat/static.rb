@@ -7,12 +7,10 @@ module Gloat
     def generate
 
       # Index
-      #
       generate_index
 
       # Decks
-      #
-      config.decks.each do |deck|
+      config.static_decks.each do |deck|
         generate_deck deck
       end
     end
@@ -25,13 +23,11 @@ module Gloat
         data = {
           name: 'Available decks',
           decks: config.decks,
-          decks_static_path: decks_static_path
+          static_decks_path: static_decks_path
         }
 
         markup = Nokogiri::HTML(Gloat::Page::StaticBasic.new('static_decks', data).render)
 
-        # FIXME: Extract
-        #
         markup.css('link').each do |x|
           next if !x.attribute('href') || x.attribute('href').value.match(/^http/)
           x.attribute('href').value = "." + x.attribute('href').value
@@ -56,17 +52,12 @@ module Gloat
       deck = Gloat::Page::StaticDeck.new(deck)
       deck_path = File.join(static_path, 'decks', deck.slug)
 
-      p deck_path
-
       FileUtils.mkdir_p(File.join(static_path, 'assets', 'themes', deck.theme))
       FileUtils.mkdir_p(deck_path)
 
       File.open(File.join(deck_path, 'index.html'), 'w') do |file|
 
         markup = Nokogiri::HTML(deck.render)
-
-        # FIXME: Extract
-        #
 
         # CSS
         #
@@ -85,7 +76,7 @@ module Gloat
         file.write markup.to_s
       end
 
-      %W{ vendor.js application.js base.css vendor.css application.css themes/#{deck.theme}/style.css themes/#{deck.theme}/background.png }.each do |file|
+      %W{ vendor.js application.js base.css vendor.css application.css themes/#{deck.theme}/style.css themes/#{deck.theme}/background.png themes/#{deck.theme}/logo.png }.each do |file|
         File.open(File.join(static_path, 'assets', file), 'w') do |f|
           f.write env[file].to_s
         end
@@ -102,7 +93,9 @@ module Gloat
       # Assets
       #
       FileUtils.cp_r Dir[File.join(assets_path, 'images', '*')], File.join(static_path, 'assets')
+
       FileUtils.cp_r Dir[File.join(assets_path, 'fonts', '*')], File.join(static_path, 'assets')
+      FileUtils.cp_r Dir[File.join(root_assets_path, 'fonts', '*')], File.join(static_path, 'assets')
     end
 
     private
@@ -112,33 +105,47 @@ module Gloat
     end
 
     def root_path
+      @root_path ||= File.expand_path(File.join('..', '..', '..'), __FILE__)
+    end
+
+    def current_path
       Dir.pwd
     end
 
     def assets_path
-      @assets_path ||= File.join(root_path, 'assets')
+      @assets_path ||= File.join(current_path, 'assets')
+    end
+
+    def root_assets_path
+      @root_assets_path ||= File.join(root_path, 'assets')
     end
 
     def static_path
-      @static_path ||= File.join(root_path, 'static')
+      @static_path ||= File.join(current_path, 'static')
     end
 
-    def decks_static_path
-      @decks_static_path ||= File.join(static_path, 'decks')
+    def static_decks_path
+      @static_decks_path ||= File.join(static_path, 'decks')
     end
 
     def images_path
-      @images_path ||= File.join(root_path, 'slides', 'images')
+      @images_path ||= File.join(current_path, 'slides', 'images')
     end
 
     def env
       @env ||= begin
         env = Sprockets::Environment.new
-        env.append_path File.join(assets_path, 'stylesheets')
-        env.append_path File.join(assets_path, 'javascripts')
-        env.append_path File.join(assets_path, 'images')
-        env.append_path File.join(assets_path, 'fonts')
-        env.append_path File.join(assets_path)
+
+        [ root_assets_path, assets_path ].each do |path|
+
+          env.append_path File.join(path, 'stylesheets')
+          env.append_path File.join(path, 'javascripts')
+          env.append_path File.join(path, 'images')
+          env.append_path File.join(path, 'themes')
+          env.append_path File.join(path, 'fonts')
+          env.append_path File.join(path)
+        end
+
         env
       end
     end

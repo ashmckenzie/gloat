@@ -57,6 +57,14 @@ module Gloat
       end
     end
 
+     def static_decks
+      @static_decks ||= begin
+        @settings.decks.map do |deck_attributes|
+          StaticDeck.new(deck_attributes)
+        end
+      end
+    end
+
     def deck_for_slug slug
       decks.detect { |deck| deck.slug == slug }
     end

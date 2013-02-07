@@ -73,7 +73,7 @@ module Gloat
 
     def parse_slide_file file
       File.read(file).scan(SLIDE_REGEX).map do |content|
-        Gloat::Slide.new(config, content, Pathname.new(file).extname.gsub(/^\./, ''))
+        Gloat::Slide.new(content, Pathname.new(file).extname.gsub(/^\./, ''))
       end
     end
   end
