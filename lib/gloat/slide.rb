@@ -89,7 +89,7 @@ module Gloat
     end
 
     def emojify markup=''
-      markup.gsub(/:([a-z0-9\+\-_]+):/) do |match|
+      markup.gsub(/\s*:([a-z0-9\+\-_]+):\s*/) do |match|
         if is_emoji?($1)
           %Q{<img alt="#{$1}" src="/assets/emoji/#{$1}.png" class="emoji" />}
         else
