@@ -8,7 +8,7 @@ window.Gloat.DeckKeyBindings = class DeckKeyBindings
     Mousetrap.bind '?', ->
       $('#help').reveal();
 
-    Mousetrap.bind 'escape', ->
+    Mousetrap.bind [ 'escape', 'enter' ], ->
       @deckViewModel.toggleSlideList(false)
 
     Mousetrap.bind 'd', ->
