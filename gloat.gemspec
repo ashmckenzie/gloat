@@ -7,7 +7,7 @@ require 'gloat/version'
 Gem::Specification.new do |gem|
   gem.name          = "gloat"
   gem.version       = Gloat::VERSION
-  gem.platform    = Gem::Platform::RUBY
+  gem.platform      = Gem::Platform::RUBY
   gem.authors       = ["Ash McKenzie"]
   gem.email         = ["ash@greenworm.com.au"]
   gem.description   = %q{Gloat - Show off your presentation using Markdown, Textile, HAML or whatever!}

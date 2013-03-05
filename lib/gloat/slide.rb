@@ -43,7 +43,7 @@ module Gloat
           else raise 'Unknown language'
         end
 
-        Nokogiri::HTML::fragment(markup)
+        Nokogiri::HTML::fragment(emojify(markup))
       end
     end
 
@@ -86,6 +86,24 @@ module Gloat
 
     def template_file
       File.expand_path(File.join('..', '..', '..', 'views', 'templates', "#{template_name}.erb"), __FILE__)
+    end
+
+    def emojify markup=''
+      markup.gsub(/:([a-z0-9\+\-_]+):/) do |match|
+        if is_emoji?($1)
+          %Q{<img alt="#{$1}" src="/assets/emoji/#{$1}.png" class="emoji" />}
+        else
+          match
+        end
+      end
+    end
+
+    def is_emoji? file
+      available_emojis.include? file
+    end
+
+    def available_emojis
+      @available_emojis ||= Dir["#{config.images_path}/emoji/*.png"].sort.map { |f| File.basename(f, '.png') }
     end
   end
 end

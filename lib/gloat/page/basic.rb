@@ -15,7 +15,19 @@ module Gloat
       end
 
       def content
-        Nokogiri::HTML.fragment(Tilt::ERBTemplate.new(File.join(views_path, "#{@action}.erb")).render(self, @data))
+        Nokogiri::HTML.fragment(template).render(self, data)
+      end
+
+      private
+
+      attr_reader :data
+
+      def template
+        Tilt::ERBTemplate.new(template_file)
+      end
+
+      def template_file
+        File.join(views_path, "#{@action}.erb")
       end
     end
   end

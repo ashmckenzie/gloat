@@ -37,6 +37,10 @@ module Gloat
       @themes_path ||= File.join(assets_path, 'themes')
     end
 
+    def images_path
+      @images_path ||= File.join(assets_path, 'images')
+    end
+
     def local_themes_path
       @local_themes_path ||= File.join(current_path, 'assets', 'themes')
     end
