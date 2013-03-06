@@ -22,6 +22,7 @@ module Gloat
       env.append_path File.join(config.root_path, 'assets')
 
       env.append_path File.join(Dir.pwd, 'assets', 'themes')
+      env.append_path File.join(Dir.pwd, 'assets', 'stylesheets')
       env.append_path File.join(Dir.pwd, 'assets')
     end
 
