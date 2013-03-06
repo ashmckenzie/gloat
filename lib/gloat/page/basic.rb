@@ -15,7 +15,7 @@ module Gloat
       end
 
       def content
-        Nokogiri::HTML.fragment(template).render(self, data)
+        Nokogiri::HTML.fragment(template)
       end
 
       private
@@ -23,7 +23,7 @@ module Gloat
       attr_reader :data
 
       def template
-        Tilt::ERBTemplate.new(template_file)
+        Tilt::ERBTemplate.new(template_file).render(self, data)
       end
 
       def template_file
