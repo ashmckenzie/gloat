@@ -45,6 +45,10 @@ module Gloat
         '/assets/application.css'
       end
 
+      def local_application_css
+        '/assets/local_application.css'
+      end
+
       def theme_css
         "/assets/themes/#{theme}/style.css"
       end
