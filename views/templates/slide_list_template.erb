@@ -1,5 +1,5 @@
 <div class="slide" data-bind="attr: { 'data-slide-number': number() }, css: cssClasses(), click: $parent.slideListClick">
-  <div class="slide-outer" data-bind="css: { current: $root.currentSlide() && $root.currentSlide().number() == number() }">
+  <div class="slide-outer" data-bind="css: { current: $root.currentSlideList() && $root.currentSlideList().number() == number() }">
     <p class="slide-number-background">
       #<span data-bind="text: number()"></span>
     </p>

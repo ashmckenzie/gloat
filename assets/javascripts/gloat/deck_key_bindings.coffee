@@ -8,7 +8,7 @@ window.Gloat.DeckKeyBindings = class DeckKeyBindings
     Mousetrap.bind '?', ->
       $('#help').reveal();
 
-    Mousetrap.bind [ 'escape', 'enter' ], ->
+    Mousetrap.bind 'escape', ->
       @deckViewModel.toggleSlideList(false)
 
     Mousetrap.bind 'd', ->
@@ -24,10 +24,20 @@ window.Gloat.DeckKeyBindings = class DeckKeyBindings
       location.hash = @deckViewModel.totalSlideNumber()
 
     Mousetrap.bind 'left', ->
-      @deckViewModel.gotoPreviousSlide()
+      if !@deckViewModel.slideListVisible()
+        @deckViewModel.gotoPreviousSlide()
+      else
+        @deckViewModel.gotoPreviousSlideList()
 
     Mousetrap.bind [ 'right', 'space' ], ->
-      @deckViewModel.gotoNextSlide()
+      if !@deckViewModel.slideListVisible()
+        @deckViewModel.gotoNextSlide()
+      else
+        @deckViewModel.gotoNextSlideList()
+
+    Mousetrap.bind 'enter', ->
+      if @deckViewModel.slideListVisible()
+        @deckViewModel.slideListClick(@deckViewModel.currentSlideList())
 
     Mousetrap.stopCallback = =>
       @slideChanged == true
